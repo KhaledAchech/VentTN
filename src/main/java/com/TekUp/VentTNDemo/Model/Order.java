@@ -1,13 +1,11 @@
 package com.TekUp.VentTNDemo.Model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 /************************************
  ********* author : Khaled ***********
- *** last update : October the 13th***
+ *** last update : October the 14th***
  ************************************/
 /* Commande Model */
     @Entity
@@ -23,19 +21,24 @@ public class Order {
     private Date Order_date;
 
     @ManyToMany (mappedBy = "orders")
-    private ArrayList<Product> products;
+    private Set<Product> products = new HashSet<>();
 
     //Class Constructor
     public Order() {}
 
     //Class Constructor with parameters
-    public Order(UUID order_id, String order_delivery, String paiement_methode, Date order_date, ArrayList<Product> products) {
-        Order_ID = order_id;
+    public Order(String order_delivery, String paiement_methode, Date order_date) {
         Order_delivery = order_delivery;
         Paiement_methode = paiement_methode;
         Order_date = order_date;
-        this.products = products;
     }
+
+    //Class Constructor with parameters
+    public Order(String order_delivery, String paiement_methode) {
+        Order_delivery = order_delivery;
+        Paiement_methode = paiement_methode;
+    }
+
 
     //Order Getters and setters
     public UUID getOrder_ID() {
@@ -70,12 +73,27 @@ public class Order {
         Order_date = order_date;
     }
 
-    public ArrayList<Product> getProducts() {
+    public Set<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(ArrayList<Product> products) {
+    public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Order order = (Order) o;
+
+        return Order_ID != null ? Order_ID.equals(order.Order_ID) : order.Order_ID == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return Order_ID != null ? Order_ID.hashCode() : 0;
     }
 
     //Order Discription

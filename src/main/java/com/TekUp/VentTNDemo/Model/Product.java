@@ -2,11 +2,13 @@ package com.TekUp.VentTNDemo.Model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 /************************************
 ********* author : Khaled ***********
-*** last update : October the 13th***
+*** last update : October the 14th***
 ************************************/
 /* Product Model */
     @Entity
@@ -26,20 +28,18 @@ public class Product {
     @ManyToMany
     @JoinTable (name = "products_orders", joinColumns = @JoinColumn (name = "product_id"),
                                           inverseJoinColumns = @JoinColumn(name = "order_id"))
-    private ArrayList<Order> orders;
+    private Set<Order> orders = new HashSet<>();
 
     //Class Constructor
     public Product() { }
 
     //Class Constructor with parameters
-    public Product(UUID product_ID, String nom, String product_Disc, float price, int qt_stock, int discount, ArrayList<Order> orders) {
-        this.product_ID = product_ID;
+    public Product(String nom, String product_Disc, float price, int qt_stock, int discount) {
         this.nom = nom;
         this.product_Disc = product_Disc;
         Price = price;
         this.qt_stock = qt_stock;
         this.discount = discount;
-        this.orders = orders;
     }
 
 
@@ -92,11 +92,11 @@ public class Product {
         this.discount = discount;
     }
 
-    public ArrayList<Order> getOrders() {
+    public Set<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(ArrayList<Order> orders) {
+    public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
 
@@ -113,4 +113,18 @@ public class Product {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        return product_ID != null ? product_ID.equals(product.product_ID) : product.product_ID == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return product_ID != null ? product_ID.hashCode() : 0;
+    }
 }
