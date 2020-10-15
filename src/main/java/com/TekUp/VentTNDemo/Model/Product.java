@@ -11,7 +11,8 @@ import java.util.UUID;
 *** last update : October the 14th***
 ************************************/
 /* Product Model */
-    @Entity
+@Entity
+@Table(name = "product_table")
 public class Product {
 
     //Class attributs

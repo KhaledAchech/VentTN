@@ -8,7 +8,8 @@ import java.util.*;
  *** last update : October the 14th***
  ************************************/
 /* Commande Model */
-    @Entity
+@Entity
+@Table(name = "order_table")
 public class Order {
 
     //Class attributs
