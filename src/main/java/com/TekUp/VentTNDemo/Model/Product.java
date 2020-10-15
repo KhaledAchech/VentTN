@@ -26,6 +26,9 @@ public class Product {
     private int qt_stock;
     private int discount;
 
+    @ManyToOne
+    private Category category;
+
     @ManyToMany
     @JoinTable (name = "products_orders", joinColumns = @JoinColumn (name = "product_id"),
                                           inverseJoinColumns = @JoinColumn(name = "order_id"))
@@ -99,6 +102,14 @@ public class Product {
 
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     //Product Discription

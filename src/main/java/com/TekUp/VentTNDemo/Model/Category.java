@@ -2,6 +2,8 @@ package com.TekUp.VentTNDemo.Model;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 /************************************
@@ -20,6 +22,10 @@ public class Category {
 
     private String name;
     private String description;
+
+    @OneToMany
+    @JoinColumn(name = "category_id")
+    private Set<Product> products = new HashSet<>();
 
     //constructor with parameters
     public Category(String name, String description) {
@@ -54,6 +60,14 @@ public class Category {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 
     //Category Description :).
