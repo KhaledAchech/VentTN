@@ -26,13 +26,14 @@ public class Product {
     private int qt_stock;
     private int discount;
 
-    @ManyToOne
-    private Category category;
-
     @ManyToMany
     @JoinTable (name = "products_orders", joinColumns = @JoinColumn (name = "product_id"),
                                           inverseJoinColumns = @JoinColumn(name = "order_id"))
     private Set<Order> orders = new HashSet<>();
+
+
+    @ManyToOne
+    private Category category;
 
     //Class Constructor
     public Product() { }

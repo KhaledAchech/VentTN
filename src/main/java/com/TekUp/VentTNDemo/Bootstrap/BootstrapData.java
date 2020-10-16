@@ -43,7 +43,7 @@ public class BootstrapData implements CommandLineRunner {
 
         //creating a category instnce
         Category c1 = new Category("Test Category", "This is a built object for test purposes");
-
+        categoryRepo.save(c1);
 
         //creating instances of products and orders
         Order o1 = new Order("123, 1st street", "by credit card");
