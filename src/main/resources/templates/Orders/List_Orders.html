@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>VENTNDEMO</title>
+</head>
+<body>
+<h1>Orders List</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Delivery</th>
+        <th>Order Date</th>
+    </tr>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.Order_ID}">00000</td>
+        <td th:text="${order.Order_delivery}">test static</td>
+        <td th:text="${order.Order_date}">Date</td>
+    </tr>
+</table>
+</body>
+</html>

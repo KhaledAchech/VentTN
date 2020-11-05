@@ -1,4 +1,4 @@
-package com.TekUp.VentTNDemo.Bootstrap;
+package com.TekUp.VentTNDemo.Data;
 
 import com.TekUp.VentTNDemo.Model.Category;
 import com.TekUp.VentTNDemo.Model.Order;
@@ -19,7 +19,7 @@ import java.util.Date;
  ************************************/
 
 @Component
-public class BootstrapData implements CommandLineRunner {
+public class DataManager implements CommandLineRunner {
 
     //BootstrapData also representing the elements we re going to save into the h2 database :)
     private final OrderRepo orderRepo;
@@ -27,7 +27,7 @@ public class BootstrapData implements CommandLineRunner {
     private final CategoryRepo categoryRepo;
 
     //BootstrapData constructor with parameters
-    public BootstrapData(OrderRepo orderRepo, ProductRepo productRepo, CategoryRepo categoryRepo) {
+    public DataManager(OrderRepo orderRepo, ProductRepo productRepo, CategoryRepo categoryRepo) {
         this.orderRepo = orderRepo;
         this.productRepo = productRepo;
         this.categoryRepo = categoryRepo;
@@ -46,10 +46,10 @@ public class BootstrapData implements CommandLineRunner {
         categoryRepo.save(c1);
 
         //creating instances of products and orders
-        Order o1 = new Order("123, 1st street", "by credit card");
+        Order o1 = new Order("123, 1st street", "by credit card",dateOne);
         Product p1 = new Product("milk","delice milk", 320, 1,1);
 
-        Order o2 = new Order("123, 3rd street", "at delivery");
+        Order o2 = new Order("123, 3rd street", "at delivery",dateOne);
         Product p2 = new Product("cheese","president", 1200, 3,1);
 
 
@@ -73,7 +73,7 @@ public class BootstrapData implements CommandLineRunner {
 
 
         System.out.println("*****************************************************************************************");
-        System.out.println("starting database injection (bootstrap) ^^ ");
+        System.out.println("starting database injection (data) ^^ ");
         System.out.println("Number of categories : " + categoryRepo.count());
         System.out.println("Category number of products : " + c1.getProducts().size());
 

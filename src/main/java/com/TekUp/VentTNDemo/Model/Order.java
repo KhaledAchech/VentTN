@@ -105,7 +105,6 @@ public class Order {
                 ", Order_delivery='" + Order_delivery + '\'' +
                 ", Paiement_methode='" + Paiement_methode + '\'' +
                 ", Order_date=" + Order_date +
-                ", products=" + products +
                 '}';
     }
 }
