@@ -15,7 +15,7 @@ import java.util.Date;
 
 /************************************
  ********* author : Khaled ***********
- *** last update : October the 14th***
+ *** last update : November the 11th***
  ************************************/
 
 @Component
@@ -75,6 +75,7 @@ public class DataManager implements CommandLineRunner {
         System.out.println("*****************************************************************************************");
         System.out.println("starting database injection (data) ^^ ");
         System.out.println("Number of categories : " + categoryRepo.count());
+        System.out.println("Number of products : " + productRepo.count());
         System.out.println("Category number of products : " + c1.getProducts().size());
 
 

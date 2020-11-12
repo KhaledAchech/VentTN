@@ -4,13 +4,14 @@ import com.TekUp.VentTNDemo.Repositories.OrderRepo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /************************************
  ********* author : Khaled ***********
  *** last update : November the 5th***
  ************************************/
 /*Order Controller*/
-@Controller
+@RestController
 public class OrderController {
 
     //Class Attributs
