@@ -42,7 +42,7 @@ public class DataManager implements CommandLineRunner {
         Instant inst = Instant.now();
 
         //creating a category instnce
-        Category c1 = new Category("Test Category", "This is a built object for test purposes");
+        Category c1 = new Category(1,"Test Category", "This is a built object for test purposes");
         categoryRepo.save(c1);
 
         //creating instances of products and orders

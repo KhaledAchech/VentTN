@@ -1,5 +1,7 @@
 package com.TekUp.VentTNDemo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,8 +19,8 @@ public class Product {
 
     //Class attributs
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID product_ID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long product_ID;
 
     private String nom;
     private String product_Disc;
@@ -33,6 +35,7 @@ public class Product {
 
 
     @ManyToOne
+    @JsonIgnore
     private Category category;
 
     //Class Constructor
@@ -47,13 +50,21 @@ public class Product {
         this.discount = discount;
     }
 
+    public Product(long product_ID, String nom, String product_Disc, float price, int qt_stock, int discount) {
+        this.product_ID = product_ID;
+        this.nom = nom;
+        this.product_Disc = product_Disc;
+        Price = price;
+        this.qt_stock = qt_stock;
+        this.discount = discount;
+    }
 
     //getters and setters for the products attributs :)
-    public UUID getProduct_ID() {
+    public long getProduct_ID() {
         return product_ID;
     }
 
-    public void setProduct_ID(UUID product_ID) {
+    public void setProduct_ID(long product_ID) {
         this.product_ID = product_ID;
     }
 
@@ -133,11 +144,11 @@ public class Product {
 
         Product product = (Product) o;
 
-        return product_ID != null ? product_ID.equals(product.product_ID) : product.product_ID == null;
+        return product_ID == product.product_ID;
     }
 
     @Override
     public int hashCode() {
-        return product_ID != null ? product_ID.hashCode() : 0;
+        return (int) (product_ID ^ (product_ID >>> 32));
     }
 }

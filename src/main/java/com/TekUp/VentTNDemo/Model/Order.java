@@ -1,5 +1,7 @@
 package com.TekUp.VentTNDemo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -12,15 +14,17 @@ import java.util.*;
 @Table(name = "order_table")
 public class Order {
 
+
     //Class attributs
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
-    private UUID Order_ID;
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private long Order_ID;
 
     private String Order_delivery;
     private String Paiement_methode;
     private Date Order_date;
 
+    @JsonIgnore
     @ManyToMany (mappedBy = "orders")
     private Set<Product> products = new HashSet<>();
 
@@ -40,13 +44,21 @@ public class Order {
         Paiement_methode = paiement_methode;
     }
 
+    public Order(long order_ID, String order_delivery, String paiement_methode, Date order_date) {
+        Order_ID = order_ID;
+        Order_delivery = order_delivery;
+        Paiement_methode = paiement_methode;
+        Order_date = order_date;
+    }
+
+
 
     //Order Getters and setters
-    public UUID getOrder_ID() {
+    public long getOrder_ID() {
         return Order_ID;
     }
 
-    public void setOrder_ID(UUID order_ID) {
+    public void setOrder_ID(long order_ID) {
         Order_ID = order_ID;
     }
 
@@ -89,12 +101,12 @@ public class Order {
 
         Order order = (Order) o;
 
-        return Order_ID != null ? Order_ID.equals(order.Order_ID) : order.Order_ID == null;
+        return Order_ID == order.Order_ID;
     }
 
     @Override
     public int hashCode() {
-        return Order_ID != null ? Order_ID.hashCode() : 0;
+        return (int) (Order_ID ^ (Order_ID >>> 32));
     }
 
     //Order Discription

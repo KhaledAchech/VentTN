@@ -12,5 +12,5 @@ import java.util.UUID;
  ************************************/
 
 
-public interface CategoryRepo extends CrudRepository<Category, UUID> {
+public interface CategoryRepo extends CrudRepository<Category, Long> {
 }

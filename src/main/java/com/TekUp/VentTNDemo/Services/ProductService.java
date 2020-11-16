@@ -13,6 +13,6 @@ import java.util.UUID;
 // Product service
 public interface ProductService {
 
-    Product findProductById(UUID id);
+    Product findProductById(long id);
     List<Product> findAllProducts();
 }

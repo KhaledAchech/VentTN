@@ -17,32 +17,37 @@ public class Category {
 
     //Category attributs :).
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID category_ID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long category_ID;
 
     private String name;
     private String description;
 
-    @OneToMany
-    @JoinColumn(name = "category_id")
+    @OneToMany(mappedBy = "category",cascade = CascadeType.REMOVE)
     private Set<Product> products = new HashSet<>();
 
+    public Category(){}
+    public Category(long category_ID, String name, String description, Set<Product> products) {
+        this.category_ID = category_ID;
+        this.name = name;
+        this.description = description;
+        this.products = products;
+    }
+
     //constructor with parameters
-    public Category(String name, String description) {
+    public Category(long category_ID,String name, String description) {
+        this.category_ID = category_ID;
         this.name = name;
         this.description = description;
     }
 
-    //constructor without parameters
-    public Category() {
-    }
 
     //getters and setters
-    public UUID getCategory_ID() {
+    public long getCategory_ID() {
         return category_ID;
     }
 
-    public void setCategory_ID(UUID category_ID) {
+    public void setCategory_ID(long category_ID) {
         this.category_ID = category_ID;
     }
 
@@ -87,11 +92,11 @@ public class Category {
 
         Category category = (Category) o;
 
-        return category_ID != null ? category_ID.equals(category.category_ID) : category.category_ID == null;
+        return category_ID == category.category_ID;
     }
 
     @Override
     public int hashCode() {
-        return category_ID != null ? category_ID.hashCode() : 0;
+        return (int) (category_ID ^ (category_ID >>> 32));
     }
 }
