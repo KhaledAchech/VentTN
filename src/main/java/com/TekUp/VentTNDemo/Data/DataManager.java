@@ -1,21 +1,18 @@
 package com.TekUp.VentTNDemo.Data;
 
-import com.TekUp.VentTNDemo.Model.Category;
-import com.TekUp.VentTNDemo.Model.Order;
-import com.TekUp.VentTNDemo.Model.Product;
-import com.TekUp.VentTNDemo.Repositories.CategoryRepo;
-import com.TekUp.VentTNDemo.Repositories.OrderRepo;
-import com.TekUp.VentTNDemo.Repositories.ProductRepo;
+import com.TekUp.VentTNDemo.Model.*;
+import com.TekUp.VentTNDemo.Repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 
 
 /************************************
  ********* author : Khaled ***********
- *** last update : November the 11th***
+ *** last update : November the 16th**
  ************************************/
 
 @Component
@@ -25,12 +22,20 @@ public class DataManager implements CommandLineRunner {
     private final OrderRepo orderRepo;
     private final ProductRepo productRepo;
     private final CategoryRepo categoryRepo;
+    private final UserRepo userRepo;
+    private final AdminRepo adminRepo;
+    private final ClientRepo clientRepo;
+    private final MessageRepo messageRepo;
 
     //BootstrapData constructor with parameters
-    public DataManager(OrderRepo orderRepo, ProductRepo productRepo, CategoryRepo categoryRepo) {
+    public DataManager(OrderRepo orderRepo, ProductRepo productRepo, CategoryRepo categoryRepo, UserRepo userRepo, AdminRepo adminRepo, ClientRepo clientRepo, MessageRepo messageRepo) {
         this.orderRepo = orderRepo;
         this.productRepo = productRepo;
         this.categoryRepo = categoryRepo;
+        this.userRepo = userRepo;
+        this.adminRepo = adminRepo;
+        this.clientRepo = clientRepo;
+        this.messageRepo = messageRepo;
     }
 
     @Override
@@ -71,12 +76,36 @@ public class DataManager implements CommandLineRunner {
         productRepo.save(p2);
         categoryRepo.save(c1);
 
+        //creating users
+        User BasicUser = new User(1,"usertest","testadress","testmail","testpass","2222",222);
+        userRepo.save(BasicUser);
+        Admin BasicAdmin = new Admin(1,"admintest","testadress","testmail","testpass","2222",222);
+        Client BasicClient = new Client(1,"clienttest","testadress","testmail","testpass","2222",222);
+
+        //creating new messages
+        Message MessagetoAdmin = new Message(1,"test message","productunavailable", LocalDate.now());
+        BasicClient.getClients_messages().add(MessagetoAdmin);
+        messageRepo.save(MessagetoAdmin);
+        clientRepo.save(BasicClient);
+        Message MessagetoClient = new Message(2,"test message","productavailable", LocalDate.now());
+        BasicAdmin.getAdmins_messages().add(MessagetoClient);
+        messageRepo.save(MessagetoClient);
+        adminRepo.save(BasicAdmin);
+
+
 
         System.out.println("*****************************************************************************************");
         System.out.println("starting database injection (data) ^^ ");
         System.out.println("Number of categories : " + categoryRepo.count());
         System.out.println("Number of products : " + productRepo.count());
         System.out.println("Category number of products : " + c1.getProducts().size());
+        System.out.println("Number of Users : " + userRepo.count());
+        System.out.println("Number of Admins : " + adminRepo.count());
+        System.out.println("Number of Clients : " + clientRepo.count());
+        System.out.println("Number of Messages : " + messageRepo.count());
+        System.out.println("Admin messages : " + BasicAdmin.getAdmins_messages().size());
+        System.out.println("Client messages : " + BasicClient.getClients_messages().size());
+
 
 
     }

@@ -10,7 +10,7 @@ import java.util.UUID;
 
 /************************************
 ********* author : Khaled ***********
-*** last update : October the 14th***
+*** last update : November the 16th**
 ************************************/
 /* Product Model */
 @Entity

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 /************************************
  ********* author : Khaled ***********
- *** last update : October the 15th***
+ *** last update : November the 16th**
  ************************************/
 /* Category Model */
 @Entity
