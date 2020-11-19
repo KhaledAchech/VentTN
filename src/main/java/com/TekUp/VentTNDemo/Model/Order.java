@@ -28,6 +28,15 @@ public class Order {
     @ManyToMany (mappedBy = "orders")
     private Set<Product> products = new HashSet<>();
 
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "bill_ID", referencedColumnName = "bill_ID")
+    private Bill bill;
+
+    @ManyToOne
+    @JsonIgnore
+    private Client client;
+
     //Class Constructor
     public Order() {}
 
@@ -92,6 +101,22 @@ public class Order {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+
+    public Bill getBill() {
+        return bill;
+    }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     @Override

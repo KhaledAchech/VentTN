@@ -28,11 +28,22 @@ public class Client extends User{
     @OneToMany(mappedBy = "client",cascade = CascadeType.REMOVE)
     private Set<Message> clients_messages = new HashSet<>();
 
+    @OneToMany(mappedBy = "client",cascade = CascadeType.REMOVE)
+    private Set<Order> clients_orders = new HashSet<>();
+
     public Set<Message> getClients_messages() {
         return clients_messages;
     }
 
     public void setClients_messages(Set<Message> clients_messages) {
         this.clients_messages = clients_messages;
+    }
+
+    public Set<Order> getClients_orders() {
+        return clients_orders;
+    }
+
+    public void setClients_orders(Set<Order> clients_orders) {
+        this.clients_orders = clients_orders;
     }
 }

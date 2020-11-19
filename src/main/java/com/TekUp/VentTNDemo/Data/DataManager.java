@@ -18,7 +18,7 @@ import java.util.Date;
 @Component
 public class DataManager implements CommandLineRunner {
 
-    //BootstrapData also representing the elements we re going to save into the h2 database :)
+    //representing the elements we re going to save into the h2 database :)
     private final OrderRepo orderRepo;
     private final ProductRepo productRepo;
     private final CategoryRepo categoryRepo;
@@ -26,9 +26,10 @@ public class DataManager implements CommandLineRunner {
     private final AdminRepo adminRepo;
     private final ClientRepo clientRepo;
     private final MessageRepo messageRepo;
+    private final BillRepo billRepo;
 
     //BootstrapData constructor with parameters
-    public DataManager(OrderRepo orderRepo, ProductRepo productRepo, CategoryRepo categoryRepo, UserRepo userRepo, AdminRepo adminRepo, ClientRepo clientRepo, MessageRepo messageRepo) {
+    public DataManager(OrderRepo orderRepo, ProductRepo productRepo, CategoryRepo categoryRepo, UserRepo userRepo, AdminRepo adminRepo, ClientRepo clientRepo, MessageRepo messageRepo, BillRepo billRepo) {
         this.orderRepo = orderRepo;
         this.productRepo = productRepo;
         this.categoryRepo = categoryRepo;
@@ -36,6 +37,7 @@ public class DataManager implements CommandLineRunner {
         this.adminRepo = adminRepo;
         this.clientRepo = clientRepo;
         this.messageRepo = messageRepo;
+        this.billRepo = billRepo;
     }
 
     @Override
@@ -92,6 +94,14 @@ public class DataManager implements CommandLineRunner {
         messageRepo.save(MessagetoClient);
         adminRepo.save(BasicAdmin);
 
+        //Making a new bill (a new purchase)
+        Bill b1 = new Bill(1,"123 address","at delivery",LocalDate.now(),1,120,o2);
+        BasicClient.getClients_orders().add(o2);
+        b1.setOrder(o2);
+        o2.setBill(b1);
+        clientRepo.save(BasicClient);
+        billRepo.save(b1);
+        orderRepo.save(o2);
 
 
         System.out.println("*****************************************************************************************");
@@ -105,6 +115,9 @@ public class DataManager implements CommandLineRunner {
         System.out.println("Number of Messages : " + messageRepo.count());
         System.out.println("Admin messages : " + BasicAdmin.getAdmins_messages().size());
         System.out.println("Client messages : " + BasicClient.getClients_messages().size());
+        System.out.println("Number of Bills  : " + billRepo.count());
+        System.out.println("Order bill : " + o2.getBill().toString());
+        System.out.println("Client orders : " + BasicClient.getClients_orders().toString());
 
 
 
