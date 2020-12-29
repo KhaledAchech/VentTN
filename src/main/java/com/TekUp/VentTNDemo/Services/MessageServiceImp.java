@@ -2,6 +2,7 @@ package com.TekUp.VentTNDemo.Services;
 
 import com.TekUp.VentTNDemo.Model.Message;
 import com.TekUp.VentTNDemo.Repositories.MessageRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,10 @@ public class MessageServiceImp implements MessageService {
 
     private final MessageRepo messageRepo;
 
-    public MessageServiceImp(MessageRepo messageRepo) {
+    @Autowired
+    public MessageServiceImp(MessageRepo messageRepo)
+    {
+        super();
         this.messageRepo = messageRepo;
     }
 

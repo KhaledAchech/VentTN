@@ -4,6 +4,7 @@ import com.TekUp.VentTNDemo.Model.Admin;
 import com.TekUp.VentTNDemo.Model.User;
 import com.TekUp.VentTNDemo.Repositories.AdminRepo;
 import com.TekUp.VentTNDemo.Repositories.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +18,9 @@ public class AdminServiceImpl implements AdminService{
     private final UserRepo userRepo;
     private final AdminRepo adminRepo;
 
+    @Autowired
     public AdminServiceImpl(UserRepo userRepo, AdminRepo adminRepo) {
+        super();
         this.userRepo = userRepo;
         this.adminRepo = adminRepo;
     }
@@ -40,5 +43,13 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public List<Admin> findAllAdmins() {
         return (List<Admin>) adminRepo.findAll();
+    }
+
+    @Override
+    public User deleteAccountByID(long id)
+    {
+        User user = this.findUserById(id);
+        userRepo.deleteById(id);
+        return user;
     }
 }

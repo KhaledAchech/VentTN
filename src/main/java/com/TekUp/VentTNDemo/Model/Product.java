@@ -3,10 +3,8 @@ package com.TekUp.VentTNDemo.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 /************************************
 ********* author : Khaled ***********
@@ -22,7 +20,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long product_ID;
 
-    private String nom;
+    private String name;
     private String product_Disc;
     private float Price;
     private int qt_stock;
@@ -42,17 +40,17 @@ public class Product {
     public Product() { }
 
     //Class Constructor with parameters
-    public Product(String nom, String product_Disc, float price, int qt_stock, int discount) {
-        this.nom = nom;
+    public Product(String name, String product_Disc, float price, int qt_stock, int discount) {
+        this.name = name;
         this.product_Disc = product_Disc;
         Price = price;
         this.qt_stock = qt_stock;
         this.discount = discount;
     }
 
-    public Product(long product_ID, String nom, String product_Disc, float price, int qt_stock, int discount) {
+    public Product(long product_ID, String name, String product_Disc, float price, int qt_stock, int discount) {
         this.product_ID = product_ID;
-        this.nom = nom;
+        this.name = name;
         this.product_Disc = product_Disc;
         Price = price;
         this.qt_stock = qt_stock;
@@ -76,12 +74,12 @@ public class Product {
         this.product_Disc = product_Disc;
     }
 
-    public String getNom() {
-        return nom;
+    public String getName() {
+        return name;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public float getPrice() {
@@ -129,7 +127,7 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "product_ID=" + product_ID +
-                ", nom='" + nom + '\'' +
+                ", name='" + name + '\'' +
                 ", product_Disc='" + product_Disc + '\'' +
                 ", Price=" + Price +
                 ", qt_stock=" + qt_stock +

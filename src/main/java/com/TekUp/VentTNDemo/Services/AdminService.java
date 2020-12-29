@@ -15,4 +15,6 @@ public interface AdminService {
     List<User> findAllUsers();
     Admin findAdminById(long id);
     List<Admin> findAllAdmins();
+
+    User deleteAccountByID(long id);
 }

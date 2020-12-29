@@ -12,4 +12,8 @@ import java.util.List;
 public interface OrderService {
     Order findOrderById(long id);
     List<Order> findAllOrders();
+
+    Order addOrder(Order order);
+    Order modifyOrder(long id,Order order);
+    Order deleteOrderById(long id);
 }

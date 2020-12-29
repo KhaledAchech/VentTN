@@ -11,6 +11,6 @@ import java.util.List;
  ************************************/
 public interface ClientService {
     Client getClientByID(long id);
-    void UpdateAccount(Client client);
+    Client UpdateAccount(long id,Client client);
 
 }

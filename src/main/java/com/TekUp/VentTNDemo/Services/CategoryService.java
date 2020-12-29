@@ -12,4 +12,8 @@ import java.util.List;
 public interface CategoryService {
     Category findCategoryById(long id);
     List<Category> findAllCategories();
+
+    Category addCategory(Category category);
+    Category modifyCategory(long id, Category newCategory);
+    Category deleteCategory(long id);
 }

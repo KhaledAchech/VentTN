@@ -2,6 +2,7 @@ package com.TekUp.VentTNDemo.Services;
 
 import com.TekUp.VentTNDemo.Model.User;
 import com.TekUp.VentTNDemo.Repositories.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +18,10 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
 
-    public UserServiceImpl(UserRepo userRepo) {
+    @Autowired
+    public UserServiceImpl(UserRepo userRepo)
+    {
+        super();
         this.userRepo = userRepo;
     }
 

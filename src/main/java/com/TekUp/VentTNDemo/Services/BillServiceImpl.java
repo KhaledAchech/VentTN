@@ -3,6 +3,8 @@ package com.TekUp.VentTNDemo.Services;
 import com.TekUp.VentTNDemo.Model.Bill;
 import com.TekUp.VentTNDemo.Model.Product;
 import com.TekUp.VentTNDemo.Repositories.BillRepo;
+import net.bytebuddy.implementation.bind.annotation.Super;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +17,10 @@ public class BillServiceImpl implements BillService {
 
     private final BillRepo billRepo;
 
-    public BillServiceImpl(BillRepo billRepo) {
+    @Autowired
+    public BillServiceImpl(BillRepo billRepo)
+    {
+        super();
         this.billRepo = billRepo;
     }
 
@@ -28,5 +33,36 @@ public class BillServiceImpl implements BillService {
     @Override
     public List<Bill> findAllBills() {
         return (List<Bill>) billRepo.findAll();
+    }
+
+    @Override
+    public Bill addBill(Bill bill) {
+        return billRepo.save(bill);
+    }
+
+    @Override
+    public Bill modifyBill(long id, Bill newBill) {
+        Bill thisBill = this.findBillById(id);
+        if(newBill.getAddress_livraison() != null)
+        {
+            thisBill.setAddress_livraison(newBill.getAddress_livraison());
+        }
+        if(newBill.getDate_commande()!=null)
+        {
+            thisBill.setDate_commande(newBill.getDate_commande());
+        }
+        if(newBill.getOrder()!=null)
+        {
+            thisBill.setOrder(newBill.getOrder());
+        }
+        return thisBill;
+    }
+
+    @Override
+    public Bill deleteBillById(long id)
+    {
+        Bill bill = this.findBillById(id);
+        billRepo.deleteById(id);
+        return bill;
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -43,10 +44,12 @@ public class DataManager implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Creating Date Object
-        Date dateOne = new Date();
+        LocalDateTime dateOne = LocalDateTime.of(
+                LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(),
+                LocalDateTime.now().getDayOfYear(), LocalDateTime.now().getHour(),
+                LocalDateTime.now().getMinute()
+        );
 
-        // Creating Instant object
-        Instant inst = Instant.now();
 
         //creating a category instnce
         Category c1 = new Category(1,"Test Category", "This is a built object for test purposes");

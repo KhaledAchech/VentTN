@@ -12,4 +12,8 @@ import java.util.List;
 public interface BillService {
     Bill findBillById(long id);
     List<Bill> findAllBills();
+
+    Bill addBill(Bill bill);
+    Bill modifyBill(long id, Bill bill);
+    Bill deleteBillById(long id);
 }

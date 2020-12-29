@@ -3,6 +3,7 @@ package com.TekUp.VentTNDemo.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /************************************
@@ -22,7 +23,7 @@ public class Order {
 
     private String Order_delivery;
     private String Paiement_methode;
-    private Date Order_date;
+    private LocalDateTime Order_date;
 
     @JsonIgnore
     @ManyToMany (mappedBy = "orders")
@@ -41,7 +42,7 @@ public class Order {
     public Order() {}
 
     //Class Constructor with parameters
-    public Order(String order_delivery, String paiement_methode, Date order_date) {
+    public Order(String order_delivery, String paiement_methode, LocalDateTime order_date) {
         Order_delivery = order_delivery;
         Paiement_methode = paiement_methode;
         Order_date = order_date;
@@ -53,7 +54,7 @@ public class Order {
         Paiement_methode = paiement_methode;
     }
 
-    public Order(long order_ID, String order_delivery, String paiement_methode, Date order_date) {
+    public Order(long order_ID, String order_delivery, String paiement_methode, LocalDateTime order_date) {
         Order_ID = order_ID;
         Order_delivery = order_delivery;
         Paiement_methode = paiement_methode;
@@ -87,11 +88,11 @@ public class Order {
         Paiement_methode = paiement_methode;
     }
 
-    public Date getOrder_date() {
+    public LocalDateTime getOrder_date() {
         return Order_date;
     }
 
-    public void setOrder_date(Date order_date) {
+    public void setOrder_date(LocalDateTime order_date) {
         Order_date = order_date;
     }
 
