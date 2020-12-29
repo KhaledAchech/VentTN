@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>VENTNDEMO</title>
+</head>
+<body>
+<h1>Products List</h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>name</th>
+        <th>price</th>
+        <th>Discount</th>
+    </tr>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.product_ID}">00000</td>
+        <td th:text="${product.name}">test static</td>
+        <td th:text="${product.Price}">100</td>
+        <td th:text="${product.category.name}">category</td>
+    </tr>
+</table>
+</body>
+</html>
