@@ -34,9 +34,11 @@ public class Order {
     @JoinColumn(name = "bill_ID", referencedColumnName = "bill_ID")
     private Bill bill;
 
+
+
     @ManyToOne
     @JsonIgnore
-    private Client client;
+    private User user;
 
     //Class Constructor
     public Order() {}
@@ -111,14 +113,14 @@ public class Order {
     public void setBill(Bill bill) {
         this.bill = bill;
     }
-
-    public Client getClient() {
-        return client;
+    public User getUser() {
+        return user;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setUser(User user) {
+        this.user = user;
     }
+
 
     @Override
     public boolean equals(Object o) {

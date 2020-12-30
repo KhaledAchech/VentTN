@@ -24,13 +24,10 @@ public class Message {
     private String subject;
     private LocalDate date;
 
-    @ManyToOne
-    @JsonIgnore
-    private Admin admin;
 
     @ManyToOne
     @JsonIgnore
-    private Client client;
+    private User user;
 
 
 

@@ -24,19 +24,15 @@ public class DataManager implements CommandLineRunner {
     private final ProductRepo productRepo;
     private final CategoryRepo categoryRepo;
     private final UserRepo userRepo;
-    private final AdminRepo adminRepo;
-    private final ClientRepo clientRepo;
     private final MessageRepo messageRepo;
     private final BillRepo billRepo;
 
     //BootstrapData constructor with parameters
-    public DataManager(OrderRepo orderRepo, ProductRepo productRepo, CategoryRepo categoryRepo, UserRepo userRepo, AdminRepo adminRepo, ClientRepo clientRepo, MessageRepo messageRepo, BillRepo billRepo) {
+    public DataManager(OrderRepo orderRepo, ProductRepo productRepo, CategoryRepo categoryRepo, UserRepo userRepo, MessageRepo messageRepo, BillRepo billRepo) {
         this.orderRepo = orderRepo;
         this.productRepo = productRepo;
         this.categoryRepo = categoryRepo;
         this.userRepo = userRepo;
-        this.adminRepo = adminRepo;
-        this.clientRepo = clientRepo;
         this.messageRepo = messageRepo;
         this.billRepo = billRepo;
     }
@@ -82,27 +78,30 @@ public class DataManager implements CommandLineRunner {
         categoryRepo.save(c1);
 
         //creating users
-        User BasicUser = new User(1,"usertest","testadress","testmail","testpass","2222",222);
+        User BasicUser = new User(1,"usertest","testadress","testmail","testpass","2222",222,"USER");
+        BasicUser.setPassword(BasicUser.EncryptPassword(BasicUser.getPassword()));
         userRepo.save(BasicUser);
-        Admin BasicAdmin = new Admin(1,"admintest","testadress","testmail","testpass","2222",222);
-        Client BasicClient = new Client(1,"clienttest","testadress","testmail","testpass","2222",222);
+        User BasicAdmin = new User(2,"admintest","testadress","testmail","testpass","2222",222,"ADMIN");
+        BasicAdmin.setPassword(BasicAdmin.EncryptPassword(BasicAdmin.getPassword()));
+        User BasicClient = new User(3,"clienttest","testadress","testmail","testpass","2222",222,"CLIENT");
+        BasicClient.setPassword(BasicClient.EncryptPassword(BasicClient.getPassword()));
 
         //creating new messages
         Message MessagetoAdmin = new Message(1,"test message","productunavailable", LocalDate.now());
-        BasicClient.getClients_messages().add(MessagetoAdmin);
+        BasicClient.getUsers_messages().add(MessagetoAdmin);
         messageRepo.save(MessagetoAdmin);
-        clientRepo.save(BasicClient);
+        userRepo.save(BasicClient);
         Message MessagetoClient = new Message(2,"test message","productavailable", LocalDate.now());
-        BasicAdmin.getAdmins_messages().add(MessagetoClient);
+        BasicAdmin.getUsers_messages().add(MessagetoClient);
         messageRepo.save(MessagetoClient);
-        adminRepo.save(BasicAdmin);
+        userRepo.save(BasicAdmin);
 
         //Making a new bill (a new purchase)
         Bill b1 = new Bill(1,"123 address","at delivery",LocalDate.now(),1,120,o2);
-        BasicClient.getClients_orders().add(o2);
+        BasicClient.getUsers_orders().add(o2);
         b1.setOrder(o2);
         o2.setBill(b1);
-        clientRepo.save(BasicClient);
+        userRepo.save(BasicClient);
         billRepo.save(b1);
         orderRepo.save(o2);
 
@@ -113,14 +112,12 @@ public class DataManager implements CommandLineRunner {
         System.out.println("Number of products : " + productRepo.count());
         System.out.println("Category number of products : " + c1.getProducts().size());
         System.out.println("Number of Users : " + userRepo.count());
-        System.out.println("Number of Admins : " + adminRepo.count());
-        System.out.println("Number of Clients : " + clientRepo.count());
         System.out.println("Number of Messages : " + messageRepo.count());
-        System.out.println("Admin messages : " + BasicAdmin.getAdmins_messages().size());
-        System.out.println("Client messages : " + BasicClient.getClients_messages().size());
+        System.out.println("Admin messages : " + BasicAdmin.getUsers_messages().size());
+        System.out.println("Client messages : " + BasicClient.getUsers_messages().size());
         System.out.println("Number of Bills  : " + billRepo.count());
         System.out.println("Order bill : " + o2.getBill().toString());
-        System.out.println("Client orders : " + BasicClient.getClients_orders().toString());
+        System.out.println("Client orders : " + BasicClient.getUsers_orders().toString());
 
 
 

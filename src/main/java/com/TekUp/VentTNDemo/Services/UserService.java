@@ -12,4 +12,11 @@ public interface UserService {
 
     User findUserById(long id);
     List<User> findAllUsers();
+
+    User addUser(User user);
+    User modUser(long id, User user);
+    User deleteUser(long id);
+
+    User findUserByEmailAndPassword(String email, String password);
+
 }

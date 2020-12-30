@@ -8,4 +8,6 @@ import org.springframework.data.repository.CrudRepository;
  *** last update : November the 16th**
  ************************************/
 public interface UserRepo extends CrudRepository<User, Long> {
+
+    User findUserByEmailAndPassword(String email, String password);
 }

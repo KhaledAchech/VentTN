@@ -1,14 +1,11 @@
 package com.TekUp.VentTNDemo.Controllers;
 
 import com.TekUp.VentTNDemo.Model.User;
-import com.TekUp.VentTNDemo.Services.AdminService;
 import com.TekUp.VentTNDemo.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 /************************************
  ********* author : Khaled ***********
@@ -40,4 +37,43 @@ public class UserController {
     {
         return userService.findUserById(id);
     }
+
+    @PostMapping
+    public User addUser(@RequestBody User user)
+    {
+        return userService.addUser(user);
+    }
+
+    @PutMapping("/{id}")
+    public User modUser(@PathVariable long id, @RequestBody User user)
+    {
+        return userService.modUser(id,user);
+    }
+
+    @DeleteMapping("/{id}")
+    public User deleteUser(@PathVariable long id)
+    {
+        return userService.deleteUser(id);
+    }
+
+    /*
+    @PostMapping("/login")
+    public String login(@RequestBody User user, HttpSession session)
+    {
+        User thisUser = userService.findUserByEmailAndPassword(user.getEmail(), user.EncryptPassword(user.getPassword()));
+        if (user.getType()=="ADMIN")
+        {
+            return "Welcome Admin";
+        }
+            else if(user.getType()=="CLIENT")
+            {
+                return "Welcome Client";
+            }
+                else
+                {
+                    return "User not found";
+                }
+    }
+    */
+     
 }
