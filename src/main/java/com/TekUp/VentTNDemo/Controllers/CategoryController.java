@@ -2,10 +2,8 @@ package com.TekUp.VentTNDemo.Controllers;
 
 import com.TekUp.VentTNDemo.Model.Category;
 import com.TekUp.VentTNDemo.Services.CategoryService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,7 +21,10 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
-    public CategoryController(CategoryService categoryService) {
+    @Autowired
+    public CategoryController(CategoryService categoryService)
+    {
+        super();
         this.categoryService = categoryService;
     }
 
@@ -38,5 +39,23 @@ public class CategoryController {
     public Category findCategoryById(@PathVariable long id)
     {
         return categoryService.findCategoryById(id);
+    }
+
+    @PostMapping
+    public Category addCategory(@RequestBody Category category)
+    {
+        return categoryService.addCategory(category);
+    }
+
+    @PutMapping("/{id}")
+    public Category modifyCategory(@PathVariable long id, @RequestBody Category category)
+    {
+        return categoryService.modifyCategory(id,category);
+    }
+
+    @DeleteMapping("/{id}")
+    public Category deleteCategory (@PathVariable long id)
+    {
+        return categoryService.deleteCategory(id);
     }
 }

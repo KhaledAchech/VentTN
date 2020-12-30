@@ -26,7 +26,7 @@ public class Order {
     private LocalDateTime Order_date;
 
     @JsonIgnore
-    @ManyToMany (mappedBy = "orders")
+    @ManyToMany (mappedBy = "orders",cascade = CascadeType.REMOVE)
     private Set<Product> products = new HashSet<>();
 
     @JsonIgnore

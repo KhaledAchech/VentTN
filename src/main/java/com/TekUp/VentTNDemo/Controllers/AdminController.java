@@ -3,10 +3,8 @@ package com.TekUp.VentTNDemo.Controllers;
 import com.TekUp.VentTNDemo.Model.Admin;
 import com.TekUp.VentTNDemo.Model.User;
 import com.TekUp.VentTNDemo.Services.AdminService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,7 +25,10 @@ public class AdminController {
      ************************************/
     private final AdminService adminService;
 
-    public AdminController(AdminService adminService) {
+    @Autowired
+    public AdminController(AdminService adminService)
+    {
+        super();
         this.adminService = adminService;
     }
 
@@ -53,6 +54,12 @@ public class AdminController {
     public Admin getAdminById(@PathVariable long id)
     {
         return adminService.findAdminById(id);
+    }
+
+    @DeleteMapping("/DeleteUser/{id}")
+    public User DeleteAccountById(@PathVariable long id)
+    {
+        return adminService.deleteAccountByID(id);
     }
 
 

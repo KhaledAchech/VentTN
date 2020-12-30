@@ -3,6 +3,7 @@ package com.TekUp.VentTNDemo.Controllers;
 import com.TekUp.VentTNDemo.Model.User;
 import com.TekUp.VentTNDemo.Services.AdminService;
 import com.TekUp.VentTNDemo.Services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,10 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    @Autowired
+    public UserController(UserService userService)
+    {
+        super();
         this.userService = userService;
     }
 

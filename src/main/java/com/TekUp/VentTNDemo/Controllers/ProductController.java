@@ -3,12 +3,10 @@ package com.TekUp.VentTNDemo.Controllers;
 import com.TekUp.VentTNDemo.Model.Product;
 import com.TekUp.VentTNDemo.Repositories.ProductRepo;
 import com.TekUp.VentTNDemo.Services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -55,7 +53,10 @@ public class ProductController {
 
     private final ProductService productService;
 
-    public ProductController(ProductService productService) {
+    @Autowired
+    public ProductController(ProductService productService)
+    {
+        super();
         this.productService = productService;
     }
 
@@ -71,4 +72,23 @@ public class ProductController {
     {
         return productService.findProductById(id);
     }
+
+    @PostMapping
+    public Product addProduct (@RequestBody Product product)
+    {
+        return productService.addProduct(product);
+    }
+
+    @PutMapping("/{id}")
+    public Product modifyProduct (@PathVariable long id, @RequestBody Product product)
+    {
+        return productService.modifyProduct(id,product);
+    }
+
+    @DeleteMapping("/{id}")
+    public Product deleteProduct(@PathVariable long id)
+    {
+        return productService.deleteProduct(id);
+    }
+
 }

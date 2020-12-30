@@ -64,7 +64,7 @@ public class OrderServiceImpl implements OrderService {
         {
             thisOrder.setBill(newOrder.getBill());
         }
-        return thisOrder;
+        return orderRepo.save(thisOrder);
     }
 
     @Override

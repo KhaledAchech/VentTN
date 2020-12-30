@@ -2,10 +2,8 @@ package com.TekUp.VentTNDemo.Controllers;
 
 import com.TekUp.VentTNDemo.Model.Order;
 import com.TekUp.VentTNDemo.Services.OrderService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,7 +45,10 @@ public class OrderController {
     private final OrderService orderService;
 
 
-    public OrderController(OrderService orderService) {
+    @Autowired
+    public OrderController(OrderService orderService)
+    {
+        super();
         this.orderService = orderService;
     }
 
@@ -61,5 +62,23 @@ public class OrderController {
     public Order findOrderById(@PathVariable long id)
     {
         return orderService.findOrderById(id);
+    }
+
+    @PostMapping
+    public Order addOrder(@RequestBody Order order)
+    {
+        return orderService.addOrder(order);
+    }
+
+    @PutMapping("/{id}")
+    public Order modifyOrder(@PathVariable long id, @RequestBody Order order)
+    {
+        return orderService.modifyOrder(id,order);
+    }
+
+    @DeleteMapping("/{id}")
+    public Order deleteOrder(@PathVariable long id)
+    {
+        return orderService.deleteOrderById(id);
     }
 }

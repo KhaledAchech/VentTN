@@ -2,10 +2,9 @@ package com.TekUp.VentTNDemo.Controllers;
 
 import com.TekUp.VentTNDemo.Model.Client;
 import com.TekUp.VentTNDemo.Services.ClientService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jmx.export.annotation.ManagedOperationParameter;
+import org.springframework.web.bind.annotation.*;
 
 /************************************
  ********* author : Khaled ***********
@@ -21,7 +20,10 @@ public class ClientController {
 
     private final ClientService clientService;
 
-    public ClientController(ClientService clientService) {
+    @Autowired
+    public ClientController(ClientService clientService)
+    {
+        super();
         this.clientService = clientService;
     }
 
@@ -29,6 +31,12 @@ public class ClientController {
     public Client getClientByID(@PathVariable long id)
     {
         return clientService.getClientByID(id);
+    }
+
+    @PutMapping("/{id}")
+    public Client UpdateAccount(@PathVariable long id, @RequestBody Client client)
+    {
+        return clientService.UpdateAccount(id,client);
     }
 
 }

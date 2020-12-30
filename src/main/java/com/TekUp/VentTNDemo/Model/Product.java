@@ -26,7 +26,7 @@ public class Product {
     private int qt_stock;
     private int discount;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable (name = "products_orders", joinColumns = @JoinColumn (name = "product_id"),
                                           inverseJoinColumns = @JoinColumn(name = "order_id"))
     private Set<Order> orders = new HashSet<>();

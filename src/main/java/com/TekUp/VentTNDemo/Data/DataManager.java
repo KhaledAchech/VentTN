@@ -46,7 +46,7 @@ public class DataManager implements CommandLineRunner {
         // Creating Date Object
         LocalDateTime dateOne = LocalDateTime.of(
                 LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(),
-                LocalDateTime.now().getDayOfYear(), LocalDateTime.now().getHour(),
+                LocalDateTime.now().getDayOfMonth(), LocalDateTime.now().getHour(),
                 LocalDateTime.now().getMinute()
         );
 

@@ -2,10 +2,8 @@ package com.TekUp.VentTNDemo.Controllers;
 
 import com.TekUp.VentTNDemo.Model.Bill;
 import com.TekUp.VentTNDemo.Services.BillService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,7 +21,10 @@ public class BillController {
 
     private final BillService billService;
 
-    public BillController(BillService billService) {
+    @Autowired
+    public BillController(BillService billService)
+    {
+        super();
         this.billService = billService;
     }
 
@@ -37,5 +38,23 @@ public class BillController {
     public Bill findBillById(@PathVariable long id)
     {
         return billService.findBillById(id);
+    }
+
+    @PostMapping
+    public Bill addBill(@RequestBody Bill bill)
+    {
+        return billService.addBill(bill);
+    }
+
+    @PutMapping("/{id}")
+    public Bill modifyBill(@PathVariable long id, @RequestBody Bill bill)
+    {
+        return billService.modifyBill(id,bill);
+    }
+
+    @DeleteMapping("/{id}")
+    public Bill deleteBill(@PathVariable long id)
+    {
+        return billService.deleteBillById(id);
     }
 }
