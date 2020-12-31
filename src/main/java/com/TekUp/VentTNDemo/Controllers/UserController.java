@@ -58,14 +58,15 @@ public class UserController {
 
     /*
     @PostMapping("/login")
-    public String login(@RequestBody User user, HttpSession session)
+    public String login(@RequestParam("email")String email,@RequestParam("password")String password, HttpSession session)
     {
-        User thisUser = userService.findUserByEmailAndPassword(user.getEmail(), user.EncryptPassword(user.getPassword()));
-        if (user.getType()=="ADMIN")
+        User user = null;
+        user = userService.findUserByEmailAndPassword(email, user.EncryptPassword(password));
+        if (user.getType().equals("ADMIN"))
         {
             return "Welcome Admin";
         }
-            else if(user.getType()=="CLIENT")
+            else if(user.getType().equals("CLIENT"))
             {
                 return "Welcome Client";
             }
@@ -75,5 +76,7 @@ public class UserController {
                 }
     }
     */
-     
+
+    
+
 }
