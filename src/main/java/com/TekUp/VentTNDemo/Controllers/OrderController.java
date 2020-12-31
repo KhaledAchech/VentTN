@@ -3,6 +3,7 @@ package com.TekUp.VentTNDemo.Controllers;
 import com.TekUp.VentTNDemo.Model.Order;
 import com.TekUp.VentTNDemo.Services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,31 +53,35 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    @GetMapping("/secured")
     public List<Order> findAllOrders()
     {
         return orderService.findAllOrders();
     }
 
-    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    @GetMapping("/secured/{id}")
     public Order findOrderById(@PathVariable long id)
     {
         return orderService.findOrderById(id);
     }
 
-    @PostMapping
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    @PostMapping("/secured")
     public Order addOrder(@RequestBody Order order)
     {
         return orderService.addOrder(order);
     }
 
-    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    @PutMapping("/secured/{id}")
     public Order modifyOrder(@PathVariable long id, @RequestBody Order order)
     {
         return orderService.modifyOrder(id,order);
     }
-
-    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    @DeleteMapping("/secured/{id}")
     public Order deleteOrder(@PathVariable long id)
     {
         return orderService.deleteOrderById(id);

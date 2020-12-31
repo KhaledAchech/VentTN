@@ -11,6 +11,6 @@ import java.util.UUID;
  *** last update : November the 16th**
  ************************************/
 
-public interface OrderRepo extends CrudRepository<Order, Long> {
+public interface OrderRepo extends JpaRepository<Order, Long> {
 
 }

@@ -1,5 +1,8 @@
 package com.TekUp.VentTNDemo.Configuration;
-
+/************************************
+ ********* author : Khaled ***********
+ *** last update : December the 31st**
+ ************************************/
 public interface PasswordEncryptOrDecrypt {
 
     int key = 5;

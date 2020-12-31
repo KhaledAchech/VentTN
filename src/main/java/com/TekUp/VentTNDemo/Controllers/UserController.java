@@ -3,6 +3,7 @@ package com.TekUp.VentTNDemo.Controllers;
 import com.TekUp.VentTNDemo.Model.User;
 import com.TekUp.VentTNDemo.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -25,14 +26,15 @@ public class UserController {
         super();
         this.userService = userService;
     }
-
-    @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/secured")
     public List<User> findAllUsers()
     {
         return userService.findAllUsers();
     }
 
-    @GetMapping("/User{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/secured/{id}")
     public User getUserById(@PathVariable long id)
     {
         return userService.findUserById(id);
@@ -44,19 +46,30 @@ public class UserController {
         return userService.addUser(user);
     }
 
-    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    @PutMapping("/secured/{id}")
     public User modUser(@PathVariable long id, @RequestBody User user)
     {
         return userService.modUser(id,user);
     }
 
-    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping("/secured/{id}")
     public User deleteUser(@PathVariable long id)
     {
         return userService.deleteUser(id);
     }
 
+
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    @GetMapping("/secured/BasicClient")
+    public String Client()
+    {
+        return "Hello Client";
+    }
     /*
+    ************************************* TEST PURPOSES *******************************************************
+    *
     @PostMapping("/login")
     public String login(@RequestParam("email")String email,@RequestParam("password")String password, HttpSession session)
     {
@@ -75,8 +88,23 @@ public class UserController {
                     return "User not found";
                 }
     }
+
+
+    @GetMapping("/BasicUser")
+    public String hello()
+    {
+        return "hello everyone";
+    }
+
+
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/secured/BasicAdmin")
+    public String Admin()
+    {
+        return "Hello Admin";
+    }
     */
 
-    
 
 }

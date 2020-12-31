@@ -1,11 +1,14 @@
 package com.TekUp.VentTNDemo.Services;
 
+import com.TekUp.VentTNDemo.Model.Role;
 import com.TekUp.VentTNDemo.Model.User;
+import com.TekUp.VentTNDemo.Repositories.RoleRepo;
 import com.TekUp.VentTNDemo.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /************************************
  ********* author : Khaled ***********
@@ -17,12 +20,14 @@ public class UserServiceImpl implements UserService {
 
 
     private final UserRepo userRepo;
+    private final RoleRepo roleRepo;
 
     @Autowired
-    public UserServiceImpl(UserRepo userRepo)
+    public UserServiceImpl(UserRepo userRepo, RoleRepo roleRepo)
     {
         super();
         this.userRepo = userRepo;
+        this.roleRepo = roleRepo;
     }
 
     @Override
@@ -37,7 +42,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addUser(User user) {
-        user.setPassword(user.EncryptPassword(user.getPassword()));
+        //user.setPassword(user.EncryptPassword(user.getPassword()));
+        Role userRole = new Role();
+        userRole.setRole("CLIENT");
+        user.getRoles().add(userRole);
+        roleRepo.save(userRole);
         return userRepo.save(user);
     }
 
@@ -67,7 +76,7 @@ public class UserServiceImpl implements UserService {
         }
         if (newUser.getPassword()!=null)
         {
-            newUser.setPassword(newUser.EncryptPassword(newUser.getPassword()));
+            //newUser.setPassword(newUser.EncryptPassword(newUser.getPassword()));
             thisUser.setPassword(newUser.getPassword());
         }
         return userRepo.save(thisUser);

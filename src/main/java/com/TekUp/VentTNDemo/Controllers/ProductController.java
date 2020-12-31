@@ -4,6 +4,7 @@ import com.TekUp.VentTNDemo.Model.Product;
 import com.TekUp.VentTNDemo.Repositories.ProductRepo;
 import com.TekUp.VentTNDemo.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -73,19 +74,21 @@ public class ProductController {
         return productService.findProductById(id);
     }
 
-    @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping("/secured")
     public Product addProduct (@RequestBody Product product)
     {
         return productService.addProduct(product);
     }
 
-    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping("/secured/{id}")
     public Product modifyProduct (@PathVariable long id, @RequestBody Product product)
     {
         return productService.modifyProduct(id,product);
     }
-
-    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping("/secured/{id}")
     public Product deleteProduct(@PathVariable long id)
     {
         return productService.deleteProduct(id);

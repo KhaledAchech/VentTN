@@ -2,6 +2,7 @@ package com.TekUp.VentTNDemo.Controllers;
 
 import com.TekUp.VentTNDemo.Model.Message;
 import com.TekUp.VentTNDemo.Services.MessageService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,13 +28,15 @@ public class MessageController {
         this.messageService = messageService;
     }
 
-    @GetMapping
+    @PreAuthorize("hasAnyRole('CLIENT','ADMIN')")
+    @GetMapping("/secured")
     public List<Message> findAllMessages()
     {
         return messageService.findAllMessages();
     }
 
-    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('CLIENT','ADMIN')")
+    @GetMapping("/secured/{id}")
     public Message findMessageById(@PathVariable long id)
     {
         return messageService.findMessageById(id);

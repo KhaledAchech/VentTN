@@ -1,8 +1,6 @@
 package com.TekUp.VentTNDemo.Model;
 
 
-import com.TekUp.VentTNDemo.Configuration.PasswordEncryptOrDecrypt;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,11 +13,13 @@ import java.util.Set;
 /* The parent Class for all the users */
 @Entity
 @Table(name = "user_table")
-public class User implements PasswordEncryptOrDecrypt {
+public class User //implements PasswordEncryptOrDecrypt
+ {
 
     //class attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private long id;
     private String name;
     private String address;
@@ -27,7 +27,14 @@ public class User implements PasswordEncryptOrDecrypt {
     private String password;
     private String telephone_number;
     private int poste_code;
-    private String type;
+    private int active;
+    //private String type;
+
+
+
+     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     private Set<Message> users_messages = new HashSet<>();
@@ -38,7 +45,7 @@ public class User implements PasswordEncryptOrDecrypt {
     public User(){}
 
     //Class Constructor
-    public User(long id, String name, String address, String email, String password, String telephone_number, int poste_code, String type) {
+    public User(long id, String name, String address, String email, String password, String telephone_number, int poste_code, int active, Set<Role> roles) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -46,16 +53,48 @@ public class User implements PasswordEncryptOrDecrypt {
         this.password = password;
         this.telephone_number = telephone_number;
         this.poste_code = poste_code;
-        this.type = type;
+        this.active = active;
+        this.roles = roles;
     }
 
-    public String getType() {
+     public User(User user) {
+         this.active = user.getActive();
+         this.address = user.getAddress();
+         this.telephone_number = user.getTelephone_number();
+         this.poste_code = user.getPoste_code();
+         this.users_messages = user.getUsers_messages();
+         this.users_orders = getUsers_orders();
+         this.email = user.getEmail();
+         this.roles = user.getRoles();
+         this.name = user.getName();
+         this.id = user.getId();
+         this.password = user.getPassword();
+     }
+
+
+     public int getActive() {
+         return active;
+     }
+
+     public void setActive(int active) {
+         this.active = active;
+     }
+     public Set<Role> getRoles() {
+         return roles;
+     }
+
+     public void setRoles(Set<Role> roles) {
+         this.roles = roles;
+     }
+    /*public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
     }
+
+     */
 
     public long getId() {
         return id;
@@ -156,6 +195,7 @@ public class User implements PasswordEncryptOrDecrypt {
         return (int) (id ^ (id >>> 32));
     }
 
+    /*
     @Override
     public String EncryptPassword(String password) {
         int key = PasswordEncryptOrDecrypt.key;
@@ -172,7 +212,7 @@ public class User implements PasswordEncryptOrDecrypt {
 
         return encpass;
     }
-
+    /*
     @Override
     public String DecryptPassword(String password) {
         int key = PasswordEncryptOrDecrypt.key;
@@ -189,4 +229,6 @@ public class User implements PasswordEncryptOrDecrypt {
 
         return decpass;
     }
+
+     */
 }

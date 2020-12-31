@@ -11,5 +11,5 @@ import java.util.UUID;
  *** last update : November the 16th**
  ************************************/
 
-public interface ProductRepo extends CrudRepository<Product, Long> {
+public interface ProductRepo extends JpaRepository<Product, Long> {
 }

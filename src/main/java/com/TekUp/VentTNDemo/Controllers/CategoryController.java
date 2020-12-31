@@ -3,6 +3,7 @@ package com.TekUp.VentTNDemo.Controllers;
 import com.TekUp.VentTNDemo.Model.Category;
 import com.TekUp.VentTNDemo.Services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,19 +42,22 @@ public class CategoryController {
         return categoryService.findCategoryById(id);
     }
 
-    @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping("/secured")
     public Category addCategory(@RequestBody Category category)
     {
         return categoryService.addCategory(category);
     }
 
-    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping("/secured/{id}")
     public Category modifyCategory(@PathVariable long id, @RequestBody Category category)
     {
         return categoryService.modifyCategory(id,category);
     }
 
-    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping("/secured/{id}")
     public Category deleteCategory (@PathVariable long id)
     {
         return categoryService.deleteCategory(id);

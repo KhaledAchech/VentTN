@@ -5,10 +5,9 @@ import com.TekUp.VentTNDemo.Repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.Set;
 
 
 /************************************
@@ -39,6 +38,7 @@ public class DataManager implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+         /*
         // Creating Date Object
         LocalDateTime dateOne = LocalDateTime.of(
                 LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(),
@@ -77,14 +77,22 @@ public class DataManager implements CommandLineRunner {
         productRepo.save(p2);
         categoryRepo.save(c1);
 
+
+        //creating Roles
+        Role Admin = new Role();
+        Admin.setRole("ADMIN");
+
+        Set<Role> adminRoles = null;
+        adminRoles.add(Admin);
+
         //creating users
-        User BasicUser = new User(1,"usertest","testadress","testmail","testpass","2222",222,"USER");
-        BasicUser.setPassword(BasicUser.EncryptPassword(BasicUser.getPassword()));
+        User BasicUser = new User(1,"usertest","testadress","testmail","testpass","2222",222,0, null);
+        //BasicUser.setPassword(BasicUser.EncryptPassword(BasicUser.getPassword()));
         userRepo.save(BasicUser);
-        User BasicAdmin = new User(2,"admintest","testadress","testmail","testpass","2222",222,"ADMIN");
-        BasicAdmin.setPassword(BasicAdmin.EncryptPassword(BasicAdmin.getPassword()));
-        User BasicClient = new User(3,"clienttest","testadress","testmail","testpass","2222",222,"CLIENT");
-        BasicClient.setPassword(BasicClient.EncryptPassword(BasicClient.getPassword()));
+        User BasicAdmin = new User(2,"admintest","testadress","testmail","testpass","2222",222,1,adminRoles);
+        //BasicAdmin.setPassword(BasicAdmin.EncryptPassword(BasicAdmin.getPassword()));
+        User BasicClient = new User(3,"clienttest","testadress","testmail","testpass","2222",222,0, null);
+        //BasicClient.setPassword(BasicClient.EncryptPassword(BasicClient.getPassword()));
 
         //creating new messages
         Message MessagetoAdmin = new Message(1,"test message","productunavailable", LocalDate.now());
@@ -120,6 +128,6 @@ public class DataManager implements CommandLineRunner {
         System.out.println("Client orders : " + BasicClient.getUsers_orders().toString());
 
 
-
+ */
     }
 }
