@@ -5,6 +5,8 @@ import com.TekUp.VentTNDemo.Model.User;
 import com.TekUp.VentTNDemo.Repositories.RoleRepo;
 import com.TekUp.VentTNDemo.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,8 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService {
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private final UserRepo userRepo;
     private final RoleRepo roleRepo;
@@ -46,6 +50,7 @@ public class UserServiceImpl implements UserService {
         Role userRole = new Role();
         userRole.setRole("CLIENT");
         user.getRoles().add(userRole);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         roleRepo.save(userRole);
         return userRepo.save(user);
     }

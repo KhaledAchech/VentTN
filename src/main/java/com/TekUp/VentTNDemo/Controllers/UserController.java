@@ -67,6 +67,14 @@ public class UserController {
     {
         return "Hello Client";
     }
+
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/secured/BasicAdmin")
+    public String Admin()
+    {
+        return "Hello Admin";
+    }
     /*
     ************************************* TEST PURPOSES *******************************************************
     *
@@ -98,12 +106,6 @@ public class UserController {
 
 
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
-    @GetMapping("/secured/BasicAdmin")
-    public String Admin()
-    {
-        return "Hello Admin";
-    }
     */
 
 
