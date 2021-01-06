@@ -17,9 +17,11 @@ public class AppController {
 
     @Autowired
     private UserRepo userRepo;
+    private UserController userController;
 
-    public AppController(UserRepo userRepo) {
+    public AppController(UserRepo userRepo, UserController userController) {
         this.userRepo = userRepo;
+        this.userController = userController;
     }
 
     @GetMapping("/login")
@@ -35,7 +37,7 @@ public class AppController {
     @PostMapping("/process_register")
     public String processRegistration(User user)
     {
-        userRepo.save(user);
+        userController.addUser(user);
         return "index";
     }
 }
