@@ -6,7 +6,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
-
+/************************************
+ ********* author : Khaled ***********
+ *** last update : November the 16th**
+ ************************************/
 public class CustomUserDetails extends User implements UserDetails {
 
     public CustomUserDetails(final User user) {
