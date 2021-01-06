@@ -24,6 +24,7 @@ public class AppController {
         this.userController = userController;
     }
 
+    /******************************** Authentication ************************************************/
     @GetMapping("/login")
     public String Login() {
         return "Authentication/login";
@@ -40,4 +41,5 @@ public class AppController {
         userController.addUser(user);
         return "index";
     }
+
 }
