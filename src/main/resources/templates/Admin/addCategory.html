@@ -10332,7 +10332,6 @@ body {
                         Dashboard
                     </a>
                     <div class="sb-sidenav-menu-heading">Data Managment</div>
-
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
 
                     </div>
@@ -10385,32 +10384,27 @@ body {
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Categories List
+                        Add Category
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <div>
-                                <td><a th:href="@{/addCategory}" class="btn btn-info">Add a new Category</a></td>
-                            </div>
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
+                    <div class="span3">
+                        <h2>Category</h2>
+                        <form th:action="@{/process_addCategory}" method="POST"
+                              th:object="${category}">
+                            <table>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>name</th>
-                                    <th>description</th>
+                                    <td><label>name</label></td>
+                                    <td><input type="text" name="name" placeholder="category name" class="span3"></td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="category : ${categories}">
-                                    <td th:text="${category.category_ID}">00000</td>
-                                    <td th:text="${category.name}">test static</td>
-                                    <td th:text="${category.description}">static</td>
-                                    <td><button type="submit" class="btn btn-success btn-block btn-large">Modify</button></td>
-                                    <td><button type="submit" class="btn btn-danger btn-block btn-large">Delete</button></td>
+                                <tr>
+                                    <td><label>product description</label></td>
+                                    <td><input type="text" name="description" placeholder="category description" class="span3"></td>
                                 </tr>
-                                </tbody>
                             </table>
-                        </div>
+                            <div>
+                                <input type="submit" value="Add" class="btn btn-success">
+                                <a th:href="@{/categories}" class="btn btn-dark">Cancel </a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

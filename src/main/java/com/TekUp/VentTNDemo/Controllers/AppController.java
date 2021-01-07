@@ -195,4 +195,23 @@ public class AppController {
         productrepo.delete(product);
         return "redirect:/products";
     }
+
+    /****** Adding Category ********/
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/addCategory")
+    public String addCategory(Model model) {
+        model.addAttribute("category",new Category());
+        return "Admin/addCategory";
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping("/process_addCategory")
+    public String processAddProduct(Category category)
+    {
+        categoryService.addCategory(category);
+        return "redirect:/categories";
+    }
+
+
+
 }
