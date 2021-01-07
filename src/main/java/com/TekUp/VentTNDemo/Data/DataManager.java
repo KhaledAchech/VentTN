@@ -129,5 +129,6 @@ public class DataManager implements CommandLineRunner {
 
 
  */
+        System.out.println(" categories : " + categoryRepo.findByName("Diary"));
     }
 }

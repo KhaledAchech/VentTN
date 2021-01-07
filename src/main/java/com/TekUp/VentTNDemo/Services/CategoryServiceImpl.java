@@ -80,6 +80,8 @@ public class CategoryServiceImpl implements CategoryService{
         }
 
          */
+        System.out.println(categoryRepo.findByName(name));
+
         return categoryRepo.findByName(name).get(0);
     }
 }

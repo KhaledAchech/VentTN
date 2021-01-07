@@ -8,10 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -149,21 +148,51 @@ public class AppController {
         return "Admin/messageManagment";
     }
 
-            /****** Adding to DataBase ********/
+            /****** Adding Product ********/
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/addProduct")
     public String addProduct(Model model) {
         model.addAttribute("product",new Product());
         return "Admin/addProduct";
     }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/process_addProduct")
-    public String processAddProduct(Product product,@RequestParam(value = "category_name", required = false) String category)
+    public String processAddProduct(Product product)
     {
-        product.setCategory(categoryService.findCategoryByName(category));
+        product.setCategory(categoryService.findCategoryByName("default"));
         productService.addProduct(product);
-        return "Admin/dashboard";
+        return "redirect:/products";
     }
 
+        /****** Updating Product ********/
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/editProduct/{id}")
+    public String editProduct(@PathVariable long id, Model model)
+    {
+        Product product = productrepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid product Id:" + id));
 
+        model.addAttribute("product",product);
 
+        return "Admin/editProduct";
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping("/process_updateProduct/{id}")
+    public String processUpdateProduct(@PathVariable long id, Product product)
+    {
+        productService.modifyProduct(id,product);
+        return "redirect:/products";
+    }
+
+        /****** Deleting a Product ********/
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/deleteProduct/{id}")
+    public String deleteProduct(@PathVariable long id, Model model) {
+        Product product = productrepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid product Id:" + id));
+        productrepo.delete(product);
+        return "redirect:/products";
+    }
 }

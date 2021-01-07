@@ -10410,8 +10410,8 @@ body {
                                 <tr>
                                     <td><label>Category</label></td>
                                     <td>
-                                        <select th:each="category : ${categories}">
-                                            <option th:name="category_name" th:text="${category.name}"></option>
+                                        <select >
+                                            <option th:each="category : ${categories}" th:text="${category.name}"></option>
                                         </select>
                                     </td>
                                 </tr>

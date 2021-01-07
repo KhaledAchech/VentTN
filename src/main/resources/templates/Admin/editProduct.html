@@ -10384,36 +10384,43 @@ body {
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Products List
+                        Add Product
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <div>
-                                <td><a th:href="@{/addProduct}" class="btn btn-info">Add a new product</a></td>
-                            </div>
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
+                    <div class="span3">
+                        <h2>Product</h2>
+                        <form th:action="@{/process_updateProduct/{id}(id=${product.product_ID})}"  method="POST"
+                              th:object="${product}">
+                            <table>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>name</th>
-                                    <th>price</th>
-                                    <th>Discount</th>
-                                    <th>Category</th>
+                                    <td><label>name</label></td>
+                                    <td><input type="text" th:text="${product.name}" name="name" placeholder="product name" ></td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="product : ${products}">
-                                    <td th:text="${product.product_ID}">00000</td>
-                                    <td th:text="${product.name}">test static</td>
-                                    <td th:text="${product.Price}">100</td>
-                                    <td th:text="${product.discount}">100</td>
-                                    <td th:text="${product.category.name}">category</td>
-                                    <td><a th:href="@{/editProduct/{id}(id=${product.product_ID})}" class="btn btn-success btn-block btn-large">Modify</a></td>
-                                    <td><a th:href="@{/deleteProduct/{id}(id=${product.product_ID})}" class="btn btn-danger btn-block btn-large">Delete</a></td>
+                                <tr>
+                                    <td><label>product description</label></td>
+                                    <td><input type="text" th:text="${product.product_Disc}" name="product_Disc" placeholder="product description"></td>
                                 </tr>
-                                </tbody>
+                                <tr>
+                                    <td><label>product price</label></td>
+                                    <td><input type="text" th:text="${product.Price}" name="Price" placeholder="product price" ></td>
+                                </tr>
+                                <tr>
+                                    <td><label>Quantity</label></td>
+                                    <td><input type="text" th:text="${product.qt_stock}" name="qt_stock" placeholder="quanitiy" ></td>
+                                </tr>
+                                <tr>
+                                    <td><label>Category</label></td>
+                                    <td>
+                                        <select >
+                                            <option th:each="category : ${categories}" th:text="${category.name}"></option>
+                                        </select>
+                                    </td>
+                                </tr>
                             </table>
-                        </div>
+                            <div>
+                                <input type="submit" value="Edit" class="btn btn-success">
+                                <a th:href="@{/products}" class="btn btn-dark">Cancel </a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

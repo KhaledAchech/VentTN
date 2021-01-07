@@ -10409,8 +10409,8 @@ body {
                                     <td th:text="${product.Price}">100</td>
                                     <td th:text="${product.discount}">100</td>
                                     <td th:text="${product.category.name}">category</td>
-                                    <td><button type="submit" class="btn btn-success btn-block btn-large">Modify</button></td>
-                                    <td><button type="submit" class="btn btn-danger btn-block btn-large">Delete</button></td>
+                                    <td><a th:href="@{/editProduct/{id}(id=${product.product_ID})}" class="btn btn-success btn-block btn-large">Modify</a></td>
+                                    <td><a th:href="@{/deleteProduct/{id}(id=${product.product_ID})}" class="btn btn-danger btn-block btn-large">Delete</a></td>
                                 </tr>
                                 </tbody>
                             </table>
