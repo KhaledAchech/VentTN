@@ -12,6 +12,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /************************************
@@ -241,6 +243,56 @@ public class AppController {
         return "redirect:/categories";
     }
 
+    /****** Adding Order ********/
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/addOrder")
+    public String addOrder(Model model) {
+        model.addAttribute("order",new Order());
+        return "Admin/addOrder";
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping("/process_addOrder")
+    public String processAddOrder(Order order)
+    {
+        LocalDateTime order_date = LocalDateTime.of(
+                LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(),
+                LocalDateTime.now().getDayOfMonth(), LocalDateTime.now().getHour(),
+                LocalDateTime.now().getMinute()
+        );
+        order.setOrder_date(order_date);
+        orderService.addOrder(order);
+        return "redirect:/orders";
+    }
+
+    /****** Updating Order ********/
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/editOrder/{id}")
+    public String editOrder(@PathVariable long id, Model model)
+    {
+        Order order = orderService.findOrderById(id);
+
+        model.addAttribute("order",order);
+
+        return "Admin/editOrder";
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping("/process_updateOrder/{id}")
+    public String processUpdateOrder(@PathVariable long id, Order order)
+    {
+        orderService.modifyOrder(id,order);
+        return "redirect:/orders";
+    }
+
+    /****** Deleting a Category ********/
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/deleteOrder/{id}")
+    public String deleteOrder(@PathVariable long id, Model model) {
+        Order order = orderService.findOrderById(id);
+        orderService.deleteOrderById(id);
+        return "redirect:/orders";
+    }
 
 
 }

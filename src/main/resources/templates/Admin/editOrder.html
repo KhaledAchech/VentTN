@@ -10384,36 +10384,27 @@ body {
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Orders List
+                        Edit Order.
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <div>
-                                <td><a th:href="@{/addOrder}" class="btn btn-info">Add a new order</a></td>
-                            </div>
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
+                    <div class="span3">
+                        <h2>Order</h2>
+                        <form th:action="@{/process_updateOrder/{id}(id=${order.Order_ID})}"  method="POST"
+                              th:object="${order}">
+                            <table>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>delivery methode</th>
-                                    <th>Paiement methode</th>
-                                    <th>Order date</th>
-                                    <th>Sum</th>
+                                    <td><label>delivery methode</label></td>
+                                    <td><input type="text" th:value="${order.Order_delivery}" name="Order_delivery" placeholder="delivery methode" ></td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="order : ${orders}">
-                                    <td th:text="${order.Order_ID}">id</td>
-                                    <td th:text="${order.Order_delivery}">test static</td>
-                                    <td th:text="${order.Paiement_methode}">card</td>
-                                    <td th:text="${order.Order_date}">24/24/2020</td>
-                                    <td th:text="${order?.bill?.montant}">this order doesn't have a bill yet.</td>
-                                    <td><a th:href="@{/editOrder/{id}(id=${order.Order_ID})}" class="btn btn-success btn-block btn-large">Modify</a></td>
-                                    <td><a th:href="@{/deleteOrder/{id}(id=${order.Order_ID})}" class="btn btn-danger btn-block btn-large">Delete</a></td>
+                                <tr>
+                                    <td><label>Paiement methode</label></td>
+                                    <td><input type="text" th:value="${order.Paiement_methode}" name="Paiement_methode" placeholder="Paiement methode"></td>
                                 </tr>
-                                </tbody>
                             </table>
-                        </div>
+                            <div>
+                                <input type="submit" value="Edit" class="btn btn-success">
+                                <a th:href="@{/orders}" class="btn btn-dark">Cancel </a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
