@@ -53,8 +53,8 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PreAuthorize("hasAnyRole('CLIENT')")
-    @GetMapping("/secured")
+    @PreAuthorize("hasAnyRole('ADMIN','CLIENT')")
+    @GetMapping
     public List<Order> findAllOrders()
     {
         return orderService.findAllOrders();

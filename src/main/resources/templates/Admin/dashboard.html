@@ -10327,34 +10327,45 @@ body {
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">Core</div>
-                    <a class="nav-link" href="/">
+                    <a class="nav-link" th:href="@{/products}">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
-                    <div class="sb-sidenav-menu-heading">Interface</div>
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                        Layouts
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
+                    <div class="sb-sidenav-menu-heading">Data Managment</div>
+
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                            <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
-                        </nav>
+
                     </div>
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Pages
+                        Messages <!-- Messages-->
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
                     <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" th:href="@{/messages}">Consult messages</a>
+                        </nav>
                     </div>
 
-                    <a class="nav-link" href="tables.html"> <!-- Products-->
+                    <a class="nav-link" th:href="@{/products}"> <!-- Products-->
                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                         Products
+                    </a>
+                    <a class="nav-link" th:href="@{/categories}"> <!-- Categories-->
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Categories
+                    </a>
+                    <a class="nav-link" th:href="@{/orders}"> <!-- Orders-->
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Orders
+                    </a>
+                    <a class="nav-link" th:href="@{/bills}"> <!-- Bills-->
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Bills
+                    </a>
+                    <a class="nav-link" th:href="@{/accounts}"> <!-- Accounts-->
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Accounts
                     </a>
                 </div>
             </div>
@@ -10376,9 +10387,11 @@ body {
                         <i class="fas fa-table mr-1"></i>
                         Products List
                     </div>
-                    <form th:action="@{/products}" method="get">
                     <div class="card-body">
                         <div class="table-responsive">
+                            <div>
+                                <td><a th:href="@{/addProduct}" class="btn btn-info">Add a new product</a></td>
+                            </div>
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
@@ -10394,13 +10407,15 @@ body {
                                     <td th:text="${product.product_ID}">00000</td>
                                     <td th:text="${product.name}">test static</td>
                                     <td th:text="${product.Price}">100</td>
+                                    <td th:text="${product.discount}">100</td>
                                     <td th:text="${product.category.name}">category</td>
+                                    <td><button type="submit" class="btn btn-success btn-block btn-large">Modify</button></td>
+                                    <td><button type="submit" class="btn btn-danger btn-block btn-large">Delete</button></td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    </form>
                 </div>
             </div>
         </main>

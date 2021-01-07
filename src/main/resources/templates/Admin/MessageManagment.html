@@ -10384,31 +10384,26 @@ body {
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Products List
+                        Messages
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <div>
-                                <td><a th:href="@{/addProduct}" class="btn btn-info">Add a new product</a></td>
-                            </div>
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>name</th>
-                                    <th>price</th>
-                                    <th>Discount</th>
-                                    <th>Category</th>
+                                    <th>message</th>
+                                    <th>subject</th>
+                                    <th>date</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="product : ${products}">
-                                    <td th:text="${product.product_ID}">00000</td>
-                                    <td th:text="${product.name}">test static</td>
-                                    <td th:text="${product.Price}">100</td>
-                                    <td th:text="${product.discount}">100</td>
-                                    <td th:text="${product.category.name}">category</td>
-                                    <td><button type="submit" class="btn btn-success btn-block btn-large">Modify</button></td>
+                                <tr th:each="message : ${messages}">
+                                    <td th:text="${message.id}">id</td>
+                                    <td th:text="${message.message}">test static</td>
+                                    <td th:text="${message.subject}">card</td>
+                                    <td th:text="${message.date}">24/24/2020</td>
+                                    <td><button type="submit" class="btn btn-info btn-block btn-large">Replay</button></td>
                                     <td><button type="submit" class="btn btn-danger btn-block btn-large">Delete</button></td>
                                 </tr>
                                 </tbody>

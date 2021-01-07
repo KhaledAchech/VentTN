@@ -10384,30 +10384,30 @@ body {
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Products List
+                        Orders List
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <div>
-                                <td><a th:href="@{/addProduct}" class="btn btn-info">Add a new product</a></td>
+                                <td><button type="submit" class="btn btn-info">Add a new order</button></td>
                             </div>
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>name</th>
-                                    <th>price</th>
-                                    <th>Discount</th>
-                                    <th>Category</th>
+                                    <th>delivery methode</th>
+                                    <th>Paiement methode</th>
+                                    <th>Order date</th>
+                                    <th>Sum</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="product : ${products}">
-                                    <td th:text="${product.product_ID}">00000</td>
-                                    <td th:text="${product.name}">test static</td>
-                                    <td th:text="${product.Price}">100</td>
-                                    <td th:text="${product.discount}">100</td>
-                                    <td th:text="${product.category.name}">category</td>
+                                <tr th:each="order : ${orders}">
+                                    <td th:text="${order.Order_ID}">id</td>
+                                    <td th:text="${order.Order_delivery}">test static</td>
+                                    <td th:text="${order.Paiement_methode}">card</td>
+                                    <td th:text="${order.Order_date}">24/24/2020</td>
+                                    <td th:text="${order.bill.montant}">sum</td>
                                     <td><button type="submit" class="btn btn-success btn-block btn-large">Modify</button></td>
                                     <td><button type="submit" class="btn btn-danger btn-block btn-large">Delete</button></td>
                                 </tr>

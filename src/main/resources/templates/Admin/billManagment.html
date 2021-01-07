@@ -10384,30 +10384,30 @@ body {
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Products List
+                        Bills List
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <div>
-                                <td><a th:href="@{/addProduct}" class="btn btn-info">Add a new product</a></td>
+                                <td><button type="submit" class="btn btn-info">Add a new bill</button></td>
                             </div>
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>name</th>
-                                    <th>price</th>
-                                    <th>Discount</th>
-                                    <th>Category</th>
+                                    <th>address</th>
+                                    <th>Paiement methode</th>
+                                    <th>Order date</th>
+                                    <th>Sum</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="product : ${products}">
-                                    <td th:text="${product.product_ID}">00000</td>
-                                    <td th:text="${product.name}">test static</td>
-                                    <td th:text="${product.Price}">100</td>
-                                    <td th:text="${product.discount}">100</td>
-                                    <td th:text="${product.category.name}">category</td>
+                                <tr th:each="bill : ${bills}">
+                                    <td th:text="${bill.bill_ID}">id</td>
+                                    <td th:text="${bill.address_livraison}">test static</td>
+                                    <td th:text="${bill.mode_paiement}">card</td>
+                                    <td th:text="${bill.date_commande}">24/24/2020</td>
+                                    <td th:text="${bill.montant}">sum</td>
                                     <td><button type="submit" class="btn btn-success btn-block btn-large">Modify</button></td>
                                     <td><button type="submit" class="btn btn-danger btn-block btn-large">Delete</button></td>
                                 </tr>

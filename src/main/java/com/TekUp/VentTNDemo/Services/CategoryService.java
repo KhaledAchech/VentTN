@@ -16,4 +16,6 @@ public interface CategoryService {
     Category addCategory(Category category);
     Category modifyCategory(long id, Category newCategory);
     Category deleteCategory(long id);
+
+    Category findCategoryByName(String name);
 }

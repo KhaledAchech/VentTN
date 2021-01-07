@@ -65,4 +65,21 @@ public class CategoryServiceImpl implements CategoryService{
         categoryRepo.deleteById(id);
         return category;
     }
+
+    @Override
+    public Category findCategoryByName(String name) {
+        /*List<Category> categories = categoryRepo.findAll();
+        Category saveCategory = null;
+        for (Category category:categories)
+        {
+            if (category.getName().equals(name))
+            {
+                saveCategory = category;
+                break;
+            }
+        }
+
+         */
+        return categoryRepo.findByName(name).get(0);
+    }
 }
