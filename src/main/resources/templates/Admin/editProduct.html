@@ -10384,7 +10384,7 @@ body {
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Add Product
+                        Edit Product
                     </div>
                     <div class="span3">
                         <h2>Product</h2>
@@ -10393,19 +10393,19 @@ body {
                             <table>
                                 <tr>
                                     <td><label>name</label></td>
-                                    <td><input type="text" th:text="${product.name}" name="name" placeholder="product name" ></td>
+                                    <td><input type="text" th:value="${product.name}" name="name" placeholder="product name" ></td>
                                 </tr>
                                 <tr>
                                     <td><label>product description</label></td>
-                                    <td><input type="text" th:text="${product.product_Disc}" name="product_Disc" placeholder="product description"></td>
+                                    <td><input type="text" th:value="${product.product_Disc}" name="product_Disc" placeholder="product description"></td>
                                 </tr>
                                 <tr>
                                     <td><label>product price</label></td>
-                                    <td><input type="text" th:text="${product.Price}" name="Price" placeholder="product price" ></td>
+                                    <td><input type="text" th:value="${product.Price}" name="Price" placeholder="product price" ></td>
                                 </tr>
                                 <tr>
                                     <td><label>Quantity</label></td>
-                                    <td><input type="text" th:text="${product.qt_stock}" name="qt_stock" placeholder="quanitiy" ></td>
+                                    <td><input type="text" th:value="${product.qt_stock}" name="qt_stock" placeholder="quanitiy" ></td>
                                 </tr>
                                 <tr>
                                     <td><label>Category</label></td>

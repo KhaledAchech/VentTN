@@ -212,6 +212,35 @@ public class AppController {
         return "redirect:/categories";
     }
 
+    /****** Updating Category ********/
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/editCategory/{id}")
+    public String editCategory(@PathVariable long id, Model model)
+    {
+        Category category = categoryService.findCategoryById(id);
+
+        model.addAttribute("category",category);
+
+        return "Admin/editCategory";
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping("/process_updateCategory/{id}")
+    public String processUpdateCategory(@PathVariable long id, Category category)
+    {
+        categoryService.modifyCategory(id,category);
+        return "redirect:/categories";
+    }
+
+    /****** Deleting a Category ********/
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/deleteCategory/{id}")
+    public String deleteCategory(@PathVariable long id, Model model) {
+        Category category = categoryService.findCategoryById(id);
+        categoryService.deleteCategory(id);
+        return "redirect:/categories";
+    }
+
 
 
 }
