@@ -345,4 +345,13 @@ public class AppController {
         return "redirect:/bills";
     }
 
+    /****** Deleting an Account ********/
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/deleteUser/{id}")
+    public String deleteAccount(@PathVariable long id, Model model) {
+        User user = userService.findUserById(id);
+        userService.deleteUser(id);
+        return "redirect:/accounts";
+    }
+
 }

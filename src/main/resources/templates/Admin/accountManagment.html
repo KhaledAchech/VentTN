@@ -10412,7 +10412,7 @@ body {
                                         <span th:if="${user.active == 1}"> Yes </span>
                                         <span th:if="${user.active == 0}"> No </span>
                                     </td>
-                                    <td><button type="submit" class="btn btn-danger btn-block btn-large">Delete</button></td>
+                                    <td><a th:href="@{/deleteUser/{id}(id=${user.id})}" class="btn btn-danger btn-block btn-large">Delete</a></td>
                                 </tr>
                                 </tbody>
                             </table>
