@@ -1,5 +1,6 @@
 package com.TekUp.VentTNDemo.Services;
 
+import com.TekUp.VentTNDemo.Model.Order;
 import com.TekUp.VentTNDemo.Model.User;
 
 import java.util.List;
@@ -17,6 +18,8 @@ public interface UserService {
     User modUser(long id, User user);
     User deleteUser(long id);
     User modUserByName(String name, User newUser);
+
+    List<Order> findClientOrders(String name);
 
     User findUserByEmailAndPassword(String email, String password);
 

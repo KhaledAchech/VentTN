@@ -6,6 +6,8 @@ import com.TekUp.VentTNDemo.Repositories.UserRepo;
 import com.TekUp.VentTNDemo.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -410,6 +412,58 @@ public class AppController {
     public String processUpdateAccount(@PathVariable String name, User user)
     {
         userService.modUserByName(name,user);
+        return "redirect:/mySpace";
+    }
+
+    /***** Check orders ******/
+    /*
+    @ModelAttribute("clientOrders")
+    public List<Order> getclientOrders(Model model)
+    {
+        String name = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails)
+        {
+            name = ((UserDetails)principal).getUsername();
+        }
+        else
+        {
+            name = principal.toString();
+        }
+        return userService.findClientOrders(name);
+    }
+    */
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    @GetMapping("/checkOrders/{name}")
+    public String clientOrders(@PathVariable String name,Model model)
+    {
+        User user = userRepo.findByName(name).get();
+        model.addAttribute("user",user);
+        return "Client/checkOrders";
+    }
+    /***** Cancel orders ******/
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    @GetMapping("/cancelOrder/{id}")
+    public String cancelOrder(@PathVariable long id, Model model) {
+        Order order = orderService.findOrderById(id);
+        orderService.deleteOrderById(id);
+        return "redirect:/mySpace";
+    }
+
+
+    /****** Sending a Message ********/
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    @GetMapping("/sendMessage")
+    public String addMessage(Model model) {
+        model.addAttribute("message",new Message());
+        return "Client/sendMessage";
+    }
+
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    @PostMapping("/process_addMessage")
+    public String processSendMessage(Message message)
+    {
+        messageService.addMessage(message);
         return "redirect:/mySpace";
     }
 }

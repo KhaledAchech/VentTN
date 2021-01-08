@@ -20,9 +20,11 @@
             <div class="span6">Welcome!<strong> User</strong></div>
             <div class="span6">
                 <div class="pull-right">
+                    <div sec:authorize="isAnonymous()">
                     <form th:action="@{/login}" method="post">
                         <button type="submit" class="btn btn-mini btn-primary" > login </button>
                     </form>
+                    </div>
                     <div sec:authorize="isAuthenticated()">
                         <form th:action="@{/logout}" method="post">
                             <button type="submit" class="btn btn-mini btn-primary" > logout </button>

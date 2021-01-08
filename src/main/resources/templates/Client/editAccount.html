@@ -25,11 +25,13 @@
         <div class="col-md-3 ">
             <div class="list-group ">
                 <!-- Nav Menu -->
-                <a th:href="@{/mySpace}" class="list-group-item list-group-item-action active">Back to VenTN ?</a>
-                <a th:href="@{/process_updateAccount/{name}(name=${#authentication.getPrincipal().getName()})}" class="list-group-item list-group-item-action">My informations</a><!-- Modify his account-->
-                <a href="#" class="list-group-item list-group-item-action">My orders</a>
-                <a href="#" class="list-group-item list-group-item-action">My bills</a>
-                <a href="#" class="list-group-item list-group-item-action">Contact</a>
+                <a th:href="@{/mySpace}" class="list-group-item list-group-item-action">Back to VenTN ?</a>
+                <a th:href="@{/process_updateAccount/{name}(name=${#authentication.getPrincipal().getName()})}" class="list-group-item list-group-item-action active">My informations</a><!-- Modify his account-->
+                <a th:href="@{/checkOrders/{name}(name=${#authentication.getPrincipal().getName()})}"  class="list-group-item list-group-item-action">My orders</a>
+                <a th:href="@{/sendMessage}" class="list-group-item list-group-item-action">Contact</a>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="list-group-item list-group-item-action" > logout </button>
+                </form>
             </div>
         </div>
         <div class="col-md-9">

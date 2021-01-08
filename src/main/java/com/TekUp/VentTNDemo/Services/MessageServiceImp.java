@@ -6,6 +6,7 @@ import com.TekUp.VentTNDemo.Repositories.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /************************************
@@ -35,7 +36,9 @@ public class MessageServiceImp implements MessageService {
     }
 
     @Override
-    public Message addMessage(Message message) {
+    public Message addMessage(Message message)
+    {
+        message.setDate(LocalDate.now());
         return messageRepo.save(message);
     }
 

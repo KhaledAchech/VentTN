@@ -1,16 +1,19 @@
 package com.TekUp.VentTNDemo.Services;
 
+import com.TekUp.VentTNDemo.Model.Order;
 import com.TekUp.VentTNDemo.Model.Role;
 import com.TekUp.VentTNDemo.Model.User;
 import com.TekUp.VentTNDemo.Repositories.RoleRepo;
 import com.TekUp.VentTNDemo.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /************************************
  ********* author : Khaled ***********
@@ -120,6 +123,26 @@ public class UserServiceImpl implements UserService {
             thisUser.setPassword(passwordEncoder.encode(thisUser.getPassword()));
         }
         return userRepo.save(thisUser);
+    }
+
+    @Override
+    public List<Order> findClientOrders(String name) {
+        Optional<User> opt = userRepo.findByName(name);
+        User client;
+        if (opt.isPresent())
+        {
+            client = opt.get();
+        }
+        else
+        {
+            throw new NoSuchElementException("no such client logged in.");
+        }
+        List<Order> clientOrders = new ArrayList<>();
+        for (Order o : client.getUsers_orders())
+        {
+            clientOrders.add(o);
+        }
+        return clientOrders;
     }
 
     @Override

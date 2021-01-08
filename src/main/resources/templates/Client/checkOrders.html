@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to VenTN</title>
+    <link rel="stylesheet"
+          th:href="@{/webjars/bootstrap/3.4.1/css/bootstrap.min.css}">
+    <script
+            th:src="@{/webjars/jquery/3.5.1/jquery.min.js}">
+    </script>
+    <script
+            th:src="@{/webjars/bootstrap/3.4.1/js/bootstrap.min.js}">
+    </script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 ">
+            <div class="list-group ">
+                <!-- Nav Meni -->
+                <a th:href="@{/mySpace}" class="list-group-item list-group-item-action">Back to VenTN ?</a>
+                <a th:href="@{/editAccount/{name}(name=${#authentication.getPrincipal().getName()})}" class="list-group-item list-group-item-action">My informations</a><!-- Modify his account-->
+                <a th:href="@{/checkOrders/{name}(name=${#authentication.getPrincipal().getName()})}"  class="list-group-item list-group-item-action active">My orders</a>
+                <a th:href="@{/sendMessage}" class="list-group-item list-group-item-action">Contact</a>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="list-group-item list-group-item-action" > logout </button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Order id</th>
+                                    <th scope="col">Delivery Methode</th>
+                                    <th scope="col">Paiement Methode</th>
+                                    <th scope="col">Order Date</th>
+                                    <!--<th scope="col">Products</th> list of product names -->
+                                    <th scope="col">Delivery Address</th> <!-- bill address_livraison -->
+                                    <th scope="col">Sum</th> <!-- bill montant -->
+                                </tr>
+                                </thead>
+                                <td>
+                                <tr th:each="user : ${users}">
+                                 <tr th:each="a: ${user?.users_orders}">
+                                    <td data-th-text="${a.Order_ID}">...</td>
+                                    <td data-th-text="${a.Order_delivery}">...</td>
+                                    <td data-th-text="${a.Paiement_methode}">...</td>
+                                    <td data-th-text="${a.Order_date}">...</td>
+                                    <td data-th-text="${a.bill?.address_livraison}">...</td>
+                                    <td data-th-text="${a.bill?.montant}">...</td>
+                                    <td><a th:href="@{/cancelOrder/{id}(id=${a.Order_ID})}" class="btn btn-danger btn-block btn-large">Cancel Order</a></td>
+                                </tr>
+
+
+                                <!--
+                                    <td th:text="${user?.users_orders?.Order_ID}">00000</td>
+                                    <td th:text="${user?.users_orders?.Order_delivery}">00000</td>
+                                    <td th:text="${user?.users_orders?.Paiement_methode}">00000</td>
+                                    <td th:text="${user?.users_orders?.Order_date}">00000</td>
+                                    <td data-th-text="${user?.users_orders?.products}">...</td>
+                                    <td>
+                                        <tr th:each="a: ${user?.users_orders?.products}">
+                                            <td data-th-text="${a.product.name}">...</td>
+                                        </tr>
+                                    </td>
+
+                                    <td th:text="${user?.users_orders??.bill?.address_livraison}">00000</td>
+                                    <td th:text="${user?.users_orders??.bill?.montant}">00000</td>
+                                    -->
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
