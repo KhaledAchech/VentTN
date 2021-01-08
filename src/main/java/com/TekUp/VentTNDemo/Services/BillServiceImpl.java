@@ -55,7 +55,15 @@ public class BillServiceImpl implements BillService {
         {
             thisBill.setOrder(newBill.getOrder());
         }
-        return thisBill;
+        if(newBill.getMontant()!=thisBill.getMontant())
+        {
+            thisBill.setMontant(newBill.getMontant());
+        }
+        if(newBill.getMode_paiement()!=null)
+        {
+            thisBill.setMode_paiement(newBill.getMode_paiement());
+        }
+        return billRepo.save(thisBill);
     }
 
     @Override

@@ -52,11 +52,11 @@ public class OrderServiceImpl implements OrderService {
         {
             thisOrder.setProducts(newOrder.getProducts());
         }
-        if (newOrder.getOrder_date()!=thisOrder.getOrder_date())
+        if (newOrder.getOrder_date()!=thisOrder.getOrder_date() && newOrder.getOrder_date()!=null)
         {
             thisOrder.setOrder_date(newOrder.getOrder_date());
         }
-        if (newOrder.getOrder_delivery()!= thisOrder.getOrder_delivery())
+        if (newOrder.getOrder_delivery()!= thisOrder.getOrder_delivery() && newOrder.getOrder_delivery()!= null)
         {
             thisOrder.setOrder_delivery(newOrder.getOrder_delivery());
         }

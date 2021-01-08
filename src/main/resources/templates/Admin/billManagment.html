@@ -10389,7 +10389,7 @@ body {
                     <div class="card-body">
                         <div class="table-responsive">
                             <div>
-                                <td><button type="submit" class="btn btn-info">Add a new bill</button></td>
+                                <td><a th:href="@{/addBill}" class="btn btn-info">Add a new bill</a></td>
                             </div>
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
@@ -10408,8 +10408,8 @@ body {
                                     <td th:text="${bill.mode_paiement}">card</td>
                                     <td th:text="${bill.date_commande}">24/24/2020</td>
                                     <td th:text="${bill.montant}">sum</td>
-                                    <td><button type="submit" class="btn btn-success btn-block btn-large">Modify</button></td>
-                                    <td><button type="submit" class="btn btn-danger btn-block btn-large">Delete</button></td>
+                                    <td><a th:href="@{/editBill/{id}(id=${bill.bill_ID})}" class="btn btn-success btn-block btn-large">Modify</a></td>
+                                    <td><a th:href="@{/deleteBill/{id}(id=${bill.bill_ID})}" class="btn btn-danger btn-block btn-large">Delete</a></td>
                                 </tr>
                                 </tbody>
                             </table>

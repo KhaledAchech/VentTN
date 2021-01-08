@@ -2,6 +2,7 @@ package com.TekUp.VentTNDemo.Model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /************************************
  ********* author : Khaled ***********
@@ -19,7 +20,7 @@ public class Bill {
 
     private String address_livraison;
     private String mode_paiement;
-    private LocalDate date_commande;
+    private LocalDateTime date_commande;
     private int promotion;
     private float montant;
 
@@ -30,7 +31,7 @@ public class Bill {
     public Bill() {}
 
     //constructor with parameters
-    public Bill(long bill_ID, String address_livraison, String mode_paiement, LocalDate date_commande, int promotion, float montant, Order order) {
+    public Bill(long bill_ID, String address_livraison, String mode_paiement, LocalDateTime date_commande, int promotion, float montant, Order order) {
         this.bill_ID = bill_ID;
         this.address_livraison = address_livraison;
         this.mode_paiement = mode_paiement;
@@ -64,11 +65,11 @@ public class Bill {
         this.mode_paiement = mode_paiement;
     }
 
-    public LocalDate getDate_commande() {
+    public LocalDateTime getDate_commande() {
         return date_commande;
     }
 
-    public void setDate_commande(LocalDate date_commande) {
+    public void setDate_commande(LocalDateTime date_commande) {
         this.date_commande = date_commande;
     }
 

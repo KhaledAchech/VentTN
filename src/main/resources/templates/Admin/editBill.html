@@ -10384,39 +10384,31 @@ body {
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Accounts List
+                        Edit Bill.
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
+                    <div class="span3">
+                        <h2>Bill</h2>
+                        <form th:action="@{/process_updateBill/{id}(id=${bill.bill_ID})}"  method="POST"
+                              th:object="${bill}">
+                            <table>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>name</th>
-                                    <th>address</th>
-                                    <th>email</th>
-                                    <th>telephone number</th>
-                                    <th>poste code</th>
-                                    <th>Active or Not</th>
+                                    <td><label>Delivery address</label></td>
+                                    <td><input type="text" name="address_livraison" th:value="${bill.address_livraison}" placeholder="Delivery address" class="span3"></td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="user : ${users}">
-                                    <td th:text="${user.id}">id</td>
-                                    <td th:text="${user.name}">test static</td>
-                                    <td th:text="${user.address}">card</td>
-                                    <td th:text="${user.email}">24/24/2020</td>
-                                    <td th:text="${user.telephone_number}">24/24/2020</td>
-                                    <td th:text="${user.poste_code}">24/24/2020</td>
-                                    <td >
-                                        <span th:if="${user.active == 1}"> Yes </span>
-                                        <span th:if="${user.active == 0}"> No </span>
-                                    </td>
-                                    <td><button type="submit" class="btn btn-danger btn-block btn-large">Delete</button></td>
+                                <tr>
+                                    <td><label>Paiement methode</label></td>
+                                    <td><input type="text" name="mode_paiement" th:value="${bill.mode_paiement}" placeholder="Paiement methode" class="span3"></td>
                                 </tr>
-                                </tbody>
+                                <tr>
+                                    <td><label>Sum</label></td>
+                                    <td><input type="text" name="montant" th:value="${bill.montant}" placeholder="total sum" class="span3"></td>
+                                </tr>
                             </table>
-                        </div>
+                            <div>
+                                <input type="submit" value="Edit" class="btn btn-success">
+                                <a th:href="@{/bills}" class="btn btn-dark">Cancel </a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

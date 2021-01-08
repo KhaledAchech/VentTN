@@ -208,7 +208,7 @@ public class AppController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping("/process_addCategory")
-    public String processAddProduct(Category category)
+    public String processAddCategory(Category category)
     {
         categoryService.addCategory(category);
         return "redirect:/categories";
@@ -285,7 +285,7 @@ public class AppController {
         return "redirect:/orders";
     }
 
-    /****** Deleting a Category ********/
+    /****** Deleting a Order ********/
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/deleteOrder/{id}")
     public String deleteOrder(@PathVariable long id, Model model) {
@@ -294,5 +294,55 @@ public class AppController {
         return "redirect:/orders";
     }
 
+    /****** Adding a Bill ********/
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/addBill")
+    public String addBill(Model model) {
+        model.addAttribute("bill",new Bill());
+        return "Admin/addBill";
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping("/process_addBill")
+    public String processAddBill(Bill bill)
+    {
+        LocalDateTime order_date = LocalDateTime.of(
+                LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(),
+                LocalDateTime.now().getDayOfMonth(), LocalDateTime.now().getHour(),
+                LocalDateTime.now().getMinute()
+        );
+        bill.setDate_commande(order_date);
+        billService.addBill(bill);
+        return "redirect:/bills";
+    }
+
+    /****** Updating Bill ********/
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/editBill/{id}")
+    public String editBill(@PathVariable long id, Model model)
+    {
+        Bill bill = billService.findBillById(id);
+
+        model.addAttribute("bill",bill);
+
+        return "Admin/editBill";
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping("/process_updateBill/{id}")
+    public String processUpdateBill(@PathVariable long id, Bill bill)
+    {
+        billService.modifyBill(id,bill);
+        return "redirect:/bills";
+    }
+
+    /****** Deleting a Bill ********/
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/deleteBill/{id}")
+    public String deleteBill(@PathVariable long id, Model model) {
+        Bill bill = billService.findBillById(id);
+        billService.deleteBillById(id);
+        return "redirect:/bills";
+    }
 
 }
