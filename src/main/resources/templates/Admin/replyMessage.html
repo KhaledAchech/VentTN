@@ -10384,31 +10384,24 @@ body {
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Messages
+                        Reply Messages.
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>message</th>
-                                    <th>subject</th>
-                                    <th>date</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="message : ${messages}">
-                                    <td th:text="${message.id}">id</td>
-                                    <td th:text="${message.content}">test static</td>
-                                    <td th:text="${message.subject}">card</td>
-                                    <td th:text="${message.date}">24/24/2020</td>
-                                    <td><a th:href="@{/replyMessage/{id}(id=${message.id})}"class="btn btn-info btn-block btn-large">Replay</a></td>
-                                    <td><a th:href="@{/deleteMessage/{id}(id=${message.id})}" class="btn btn-danger btn-block btn-large">Delete</a></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="span3">
+                        <h2>Message</h2>
+                        <form th:action="@{/process_replyMessage/{id}(id=${message.id})}"  method="POST"
+                              th:object="${message}">
+                            <div class="form-group">
+                            <label>subject</label>
+                            <input class="form-control" type="text" th:value="${message.subject}" name="subject" placeholder="subject" >
+
+                            <label>message</label>
+                            <textarea th:text="${message.content}" name="content" rows="5" class="form-control"></textarea>
+
+                            </div>
+
+                            <input type="submit" value="Reply" class="btn btn-success">
+                            <a th:href="@{/messages}" class="btn btn-dark">Cancel </a>
+                        </form>
                     </div>
                 </div>
             </div>

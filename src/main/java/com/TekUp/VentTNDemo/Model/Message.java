@@ -20,7 +20,8 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String message;
+    @Column(name = "content")
+    private String content;
     private String subject;
     private LocalDate date;
 
@@ -59,7 +60,7 @@ public class Message {
     public Message(long id, String message, String subject, LocalDate date)
     {
         this.id = id;
-        this.message = message;
+        this.content = message;
         this.subject = subject;
         this.date = date;
     }
@@ -72,12 +73,12 @@ public class Message {
         this.id = id;
     }
 
-    public String getMessage() {
-        return message;
+    public String getContent() {
+        return content;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setContent(String message) {
+        this.content = message;
     }
 
     public String getSubject() {
@@ -115,7 +116,7 @@ public class Message {
     public String toString() {
         return "Message{" +
                 "id=" + id +
-                ", message='" + message + '\'' +
+                ", content='" + content + '\'' +
                 ", Subject='" + subject + '\'' +
                 ", date=" + date +
                 '}';

@@ -354,4 +354,34 @@ public class AppController {
         return "redirect:/accounts";
     }
 
+    /****** Replay Messages ********/
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/replyMessage/{id}")
+    public String editMessage(@PathVariable long id, Model model)
+    {
+        Message message = messageService.findMessageById(id);
+
+        model.addAttribute("message",message);
+
+        return "Admin/replyMessage";
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PostMapping("/process_replyMessage/{id}")
+    public String processUpdateMessage(@PathVariable long id, Message message)
+    {
+        messageService.modifyMessage(id,message);
+        return "redirect:/messages";
+    }
+
+    /****** Deleting a Message ********/
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/deleteMessage/{id}")
+    public String deleteMessage(@PathVariable long id, Model model) {
+        Message message = messageService.findMessageById(id);
+        messageService.deleteMessageById(id);
+        return "redirect:/messages";
+    }
+
+    /******************************** Admin Closing Part *******************************/
 }
