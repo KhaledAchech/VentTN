@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to VenTN</title>
+    <link rel="stylesheet"
+          th:href="@{/webjars/bootstrap/3.4.1/css/bootstrap.min.css}">
+    <script
+            th:src="@{/webjars/jquery/3.5.1/jquery.min.js}">
+    </script>
+    <script
+            th:src="@{/webjars/bootstrap/3.4.1/js/bootstrap.min.js}">
+    </script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 ">
+            <div class="list-group ">
+                <!-- Nav Menu -->
+                <a th:href="@{/mySpace}" class="list-group-item list-group-item-action active">Back to VenTN ?</a>
+                <a th:href="@{/process_updateAccount/{name}(name=${#authentication.getPrincipal().getName()})}" class="list-group-item list-group-item-action">My informations</a><!-- Modify his account-->
+                <a href="#" class="list-group-item list-group-item-action">My orders</a>
+                <a href="#" class="list-group-item list-group-item-action">My bills</a>
+                <a href="#" class="list-group-item list-group-item-action">Contact</a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form th:action="@{/process_updateAccount/{name}(name=${#authentication.getPrincipal().getName()})}"  method="POST"
+                                  th:object="${user}">
+                                <div class="form-group row">
+                                    <label for="email" class="col-4 col-form-label">Email</label>
+                                    <div class="col-8">
+                                        <input type="email" id="email" name="email" placeholder="Your new Email ..." class="form-control here" th:value="${user.email}" required="required">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="name" class="col-4 col-form-label">Name</label>
+                                    <div class="col-8">
+                                        <input id="name" name="name" placeholder="Your new name..." class="form-control here" th:value="${user.name}" type="text" required="required">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="password" class="col-4 col-form-label">Password</label>
+                                    <div class="col-8">
+                                        <input id="password" name="password" placeholder="New Password ..." class="form-control here" type="password" required="required">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="address" class="col-4 col-form-label">Address</label>
+                                    <div class="col-8">
+                                        <input id="address" name="address" placeholder="New Address ..." class="form-control here" type="text" th:value="${user.address}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="telephone_number" class="col-4 col-form-label">Telephone number</label>
+                                    <div class="col-8">
+                                        <input id="telephone_number" name="telephone_number" placeholder="New telephone number ..."  th:value="${user.telephone_number}" class="form-control here" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="poste_code" class="col-4 col-form-label">Poste Code</label>
+                                    <div class="col-8">
+                                        <input id="poste_code" name="poste_code" placeholder="New Poste Code" class="form-control here" type="text" th:value="${user.poste_code}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="offset-4 col-8">
+                                        <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>

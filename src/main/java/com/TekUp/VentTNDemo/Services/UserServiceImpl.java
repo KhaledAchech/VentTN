@@ -52,12 +52,13 @@ public class UserServiceImpl implements UserService {
         user.getRoles().add(userRole);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         roleRepo.save(userRole);
+        user.setActive(1);
         return userRepo.save(user);
     }
 
     @Override
     public User modUser(long id, User newUser) {
-        User thisUser = this.findUserById(id);
+        User thisUser = userRepo.findById(id).get();
 
         if (newUser.getName()!=null)
         {
@@ -83,6 +84,40 @@ public class UserServiceImpl implements UserService {
         {
             //newUser.setPassword(newUser.EncryptPassword(newUser.getPassword()));
             thisUser.setPassword(newUser.getPassword());
+            thisUser.setPassword(passwordEncoder.encode(thisUser.getPassword()));
+        }
+        return userRepo.save(thisUser);
+    }
+
+    @Override
+    public User modUserByName(String name, User newUser) {
+        User thisUser = userRepo.findByName(name).get();
+
+        if (newUser.getName()!=null)
+        {
+            thisUser.setName(newUser.getName());
+        }
+        if (newUser.getAddress()!=null)
+        {
+            thisUser.setAddress(newUser.getAddress());
+        }
+        if (newUser.getEmail()!=null)
+        {
+            thisUser.setEmail(newUser.getEmail());
+        }
+        if (newUser.getTelephone_number()!=null)
+        {
+            thisUser.setTelephone_number(newUser.getTelephone_number());
+        }
+        if (newUser.getPoste_code()!= thisUser.getPoste_code())
+        {
+            thisUser.setPoste_code(newUser.getPoste_code());
+        }
+        if (newUser.getPassword()!=null)
+        {
+            //newUser.setPassword(newUser.EncryptPassword(newUser.getPassword()));
+            thisUser.setPassword(newUser.getPassword());
+            thisUser.setPassword(passwordEncoder.encode(thisUser.getPassword()));
         }
         return userRepo.save(thisUser);
     }
@@ -98,4 +133,5 @@ public class UserServiceImpl implements UserService {
     public User findUserByEmailAndPassword(String email, String password) {
         return userRepo.findUserByEmailAndPassword(email,password);
     }
+
 }

@@ -61,7 +61,7 @@ public class AppController {
     public String processRegistration(User user)
     {
         userController.addUser(user);
-        return "index";
+        return "redirect:/";
     }
 
     /************************************* Admin Dashboard *********************************/
@@ -384,4 +384,32 @@ public class AppController {
     }
 
     /******************************** Admin Closing Part *******************************/
+
+    /******************************* Client Space *************************************/
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    @GetMapping("/mySpace")
+    public String clientSpace()
+    {
+        return "Client/clientSpace";
+    }
+
+    /****** Client Account ********/
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    @GetMapping("/editAccount/{name}")
+    public String editAccount(@PathVariable String name, Model model)
+    {
+        User user = userRepo.findByName(name).get();
+
+        model.addAttribute("user",user);
+
+        return "Client/editAccount";
+    }
+
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    @PostMapping("/process_updateAccount/{name}")
+    public String processUpdateAccount(@PathVariable String name, User user)
+    {
+        userService.modUserByName(name,user);
+        return "redirect:/mySpace";
+    }
 }

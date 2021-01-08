@@ -16,7 +16,9 @@ public interface UserService {
     User addUser(User user);
     User modUser(long id, User user);
     User deleteUser(long id);
+    User modUserByName(String name, User newUser);
 
     User findUserByEmailAndPassword(String email, String password);
+
 
 }
