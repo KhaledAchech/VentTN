@@ -28,6 +28,7 @@
                 <a th:href="@{/mySpace}" class="list-group-item list-group-item-action">Back to VenTN ?</a>
                 <a th:href="@{/editAccount/{name}(name=${#authentication.getPrincipal().getName()})}" class="list-group-item list-group-item-action">My informations</a><!-- Modify his account-->
                 <a th:href="@{/checkOrders/{name}(name=${#authentication.getPrincipal().getName()})}"  class="list-group-item list-group-item-action active">My orders</a>
+                <a th:href="@{/checkMessages/{name}(name=${#authentication.getPrincipal().getName()})}" class="list-group-item list-group-item-action">My messages</a>
                 <a th:href="@{/sendMessage}" class="list-group-item list-group-item-action">Contact</a>
                 <form th:action="@{/logout}" method="post">
                     <button type="submit" class="list-group-item list-group-item-action" > logout </button>
@@ -62,6 +63,7 @@
                                     <td data-th-text="${a.bill?.montant}">...</td>
                                     <td><a th:href="@{/cancelOrder/{id}(id=${a.Order_ID})}" class="btn btn-danger btn-block btn-large">Cancel Order</a></td>
                                 </tr>
+                                </td>
 
 
                                 <!--

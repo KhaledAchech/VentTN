@@ -26,6 +26,8 @@ public class Message {
     private LocalDate date;
 
 
+
+
     @ManyToOne
     @JsonIgnore
     private User user;
@@ -63,6 +65,13 @@ public class Message {
         this.content = message;
         this.subject = subject;
         this.date = date;
+    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public long getId() {

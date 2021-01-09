@@ -463,7 +463,29 @@ public class AppController {
     @PostMapping("/process_addMessage")
     public String processSendMessage(Message message)
     {
+        String name = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails)
+        {
+            name = ((UserDetails)principal).getUsername();
+        }
+        else
+        {
+            name = principal.toString();
+        }
+        User user = userRepo.findByName(name).get();
+        message.setUser(user);
         messageService.addMessage(message);
         return "redirect:/mySpace";
     }
+    /***** Check messages ******/
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    @GetMapping("/checkMessages/{name}")
+    public String clientMessages(@PathVariable String name,Model model)
+    {
+        User user = userRepo.findByName(name).get();
+        model.addAttribute("user",user);
+        return "Client/checkMessages";
+    }
+
 }

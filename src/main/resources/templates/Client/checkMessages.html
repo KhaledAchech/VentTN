@@ -24,12 +24,12 @@
     <div class="row">
         <div class="col-md-3 ">
             <div class="list-group ">
-                <!-- Nav Menu -->
+                <!-- Nav Meni -->
                 <a th:href="@{/mySpace}" class="list-group-item list-group-item-action">Back to VenTN ?</a>
-                <a th:href="@{/process_updateAccount/{name}(name=${#authentication.getPrincipal().getName()})}" class="list-group-item list-group-item-action">My informations</a><!-- Modify his account-->
+                <a th:href="@{/editAccount/{name}(name=${#authentication.getPrincipal().getName()})}" class="list-group-item list-group-item-action">My informations</a><!-- Modify his account-->
                 <a th:href="@{/checkOrders/{name}(name=${#authentication.getPrincipal().getName()})}"  class="list-group-item list-group-item-action">My orders</a>
-                <a th:href="@{/checkMessages/{name}(name=${#authentication.getPrincipal().getName()})}" class="list-group-item list-group-item-action">My messages</a>
-                <a th:href="@{/sendMessage}" class="list-group-item list-group-item-action active">Contact</a>
+                <a th:href="@{/checkMessages/{name}(name=${#authentication.getPrincipal().getName()})}" class="list-group-item list-group-item-action active">My messages</a>
+                <a th:href="@{/sendMessage}" class="list-group-item list-group-item-action">Contact</a>
                 <form th:action="@{/logout}" method="post">
                     <button type="submit" class="list-group-item list-group-item-action" > logout </button>
                 </form>
@@ -40,20 +40,25 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <h2>Message</h2>
-                            <form th:action="@{/process_addMessage}"  method="POST"
-                                  th:object="${message}">
-                                <div class="form-group">
-                                    <label>subject</label>
-                                    <input class="form-control" type="text" name="subject" placeholder="subject" >
-
-                                    <label>message</label>
-                                    <textarea  name="content" rows="5" class="form-control"></textarea>
-
-                                </div>
-
-                                <input type="submit" value="Send" class="btn btn-success">
-                            </form>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Subject</th>
+                                    <th scope="col">Message</th>
+                                    <th scope="col">Date</th>
+                                </tr>
+                                </thead>
+                                <td>
+                                    <tr th:each="user : ${users}">
+                                    <tr th:each="a: ${user?.users_messages}">
+                                        <td data-th-text="${a.subject}">...</td>
+                                        <td data-th-text="${a.content}">...</td>
+                                        <td data-th-text="${a.date}">...</td>
+                                        <td> <a th:href="@{/sendMessage}"class="btn btn-info btn-block">Reply </a></td>
+                                </tr>
+                                </td>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
