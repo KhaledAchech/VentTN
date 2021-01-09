@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Set;
 
 /************************************
  ********* author : Khaled ***********
@@ -497,6 +498,40 @@ public class AppController {
     return "index";
     }
 
-    //filtre Products by category
+    //filtre Products by category Dairy
+    @RequestMapping("/DiaryProducts")
+    public String listDiaryProducts(Model model)
+    {
+        Set<Product> DairyProduct = categoryService.findCategoryByName("Diary").getProducts();
+        model.addAttribute("products",DairyProduct);
+        return "DiaryProducts";
+    }
+
+    //filtre Products by category Default
+    @RequestMapping("/DefaultProducts")
+    public String listDefaultProducts(Model model)
+    {
+        Set<Product> DefaultProduct = categoryService.findCategoryByName("default").getProducts();
+        model.addAttribute("products",DefaultProduct);
+        return "DefaultProducts";
+    }
+
+    //filtre Products by category Technologie
+    @RequestMapping("/TechnologieProducts")
+    public String listTechnologieProducts(Model model)
+    {
+        Set<Product> TechnologieProduct = categoryService.findCategoryByName("Technologie").getProducts();
+        model.addAttribute("products",TechnologieProduct);
+        return "TechnologieProducts";
+    }
+
+    //filtre Products by category Fruits
+    @RequestMapping("/FruitProducts")
+    public String listFruitProducts(Model model)
+    {
+        Set<Product> FruitProduct = categoryService.findCategoryByName("Fruits").getProducts();
+        model.addAttribute("products",FruitProduct);
+        return "FruitProducts";
+    }
 
 }

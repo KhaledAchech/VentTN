@@ -18,7 +18,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-<style>
+    <style>
     #flipkart-navbar {
     background-color: #2874f0;
     color: #FFFFFF;
@@ -343,47 +343,47 @@ function closeNav() {
         </div>
     </div>
 </div>
-    <!-- Side Bar -->
-    <div class="row">
-        <div class="col-sm-2">
-            <nav class="nav-sidebar">
-                <ul class="nav">
-                    <li class="active">Categories</a></li>
-                    <li class="nav-divider"></li>
-                    <li><a th:href="@{/DiaryProducts}">Diary</a></li>
-                    <li><a th:href="@{/DefaultProducts}">Default</a></li>
-                    <li><a th:href="@{/TechnologieProducts}">Technologie</a></li>
-                    <li><a th:href="@{/FruitProducts}">Fruits</a></li>
-                </ul>
-            </nav>
-        </div>
+<!-- Side Bar -->
+<div class="row">
+    <div class="col-sm-2">
+        <nav class="nav-sidebar">
+            <ul class="nav">
+                <li class="active">Categories</a></li>
+                <li class="nav-divider"></li>
+                <li><a th:href="@{/DiaryProducts}">Diary</a></li>
+                <li><a th:href="@{/DefaultProducts}">Default</a></li>
+                <li><a th:href="@{/TechnologieProducts}">Technologie</a></li>
+                <li><a th:href="@{/FruitProducts}">Fruits</a></li>
+            </ul>
+        </nav>
     </div>
+</div>
 
 <div class="container">
 
     <br>  <h1 class="text-center">Our Products</h1>
 
 
-<table  class="table table-hover">
+    <table  class="table table-hover">
 
-    <thead>
-    <tr class="table-warning">
-        <th>name</th>
-        <th>price</th>
-        <th>Category</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="table-primary" th:each="product : ${products}">
-    <td th:text="${product.name}">test static</td>
-    <td th:text="${product.Price}">100</td>
-    <td th:text="${product.category.name}">category</td>
-    <td><a href="#"class="btn btn-info ">Add to Cart</a></td>
-    </tr>
-    </tbody>
+        <thead>
+        <tr class="table-warning">
+            <th>name</th>
+            <th>price</th>
+            <th>Category</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="table-primary" th:each="product : ${products}">
+            <td th:text="${product.name}">test static</td>
+            <td th:text="${product.Price}">100</td>
+            <td th:text="${product.category.name}">category</td>
+            <td><a href="#"class="btn btn-info ">Add to Cart</a></td>
+        </tr>
+        </tbody>
 
 
-</table>
+    </table>
 
 </div>
 
