@@ -488,4 +488,15 @@ public class AppController {
         return "Client/checkMessages";
     }
 
+    /*********** Application ******************/
+    //Display all products in the index page ^^.
+    @RequestMapping("/")
+    public String listProducts(Model model)
+    {
+    model.addAttribute("products",productService.findAllProducts());
+    return "index";
+    }
+
+    //filtre Products by category
+
 }
