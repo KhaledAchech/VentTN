@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -36,6 +38,8 @@ public class AppController {
     private BillService billService;
     private UserService userService;
     private MessageService messageService;
+    private static List<Product> cart = new ArrayList<>();
+
 
     public AppController(UserRepo userRepo, UserController userController, ProductRepo productrepo, ProductService productService, CategoryService categoryService, OrderService orderService, BillService billService, UserService userService, MessageService messageService) {
         this.userRepo = userRepo;
@@ -534,4 +538,100 @@ public class AppController {
         return "FruitProducts";
     }
 
+    /***** cart Managment *****/
+    //add product to cart
+    @GetMapping("/addProductCart/{id}")
+    public String addProductCart(@PathVariable long id, Model model) {
+        Product product = productrepo.findById(id).get();
+        cart.add(product);
+        System.out.println("*****************: "+cart.size());
+        return "index";
+    }
+
+    //Cart list
+    @RequestMapping("/cartManagment")
+    public String listProductsInCart(Model model)
+    {
+        model.addAttribute("products",cart);
+        System.out.println(cart);
+        return "cartManagment";
+    }
+
+    //remove Product from Cart
+    @GetMapping("/removeProductCart/{id}")
+    public String removeProductCart(@PathVariable long id, Model model) {
+        Product product = productrepo.findById(id).get();
+        cart.remove(product);
+        System.out.println("*****************: "+cart.size());
+        return "redirect:/cartManagment";
+    }
+
+    //make Order
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    @GetMapping("/makeOrder")
+    public String makeOrder(Model model)
+    {
+        model.addAttribute("order",new Order());
+        return "makeOrder";
+    }
+
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    @PostMapping("/process_makeOrder")
+    public String processMakeOrder(Order order)
+    {
+        String name = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails)
+        {
+            name = ((UserDetails)principal).getUsername();
+        }
+        else
+        {
+            name = principal.toString();
+        }
+
+        LocalDateTime order_date = LocalDateTime.of(
+                LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(),
+                LocalDateTime.now().getDayOfMonth(), LocalDateTime.now().getHour(),
+                LocalDateTime.now().getMinute()
+        );
+
+
+        User user = userRepo.findByName(name).get();
+
+
+        //linking the order with the products
+        Set<Product> products = new HashSet<>();
+        for (Product p:cart)
+        {
+            products.add(p);
+        }
+        order.setProducts(products);
+
+        Bill bill = new Bill();
+        float sum = 0;
+        for (Product p : cart)
+        {
+            sum += p.getPrice();
+        }
+        //creating the bill
+        bill.setMontant(sum);
+        bill.setMode_paiement(order.getPaiement_methode());
+        bill.setAddress_livraison(user.getAddress());
+        bill.setDate_commande(order_date);
+        bill.setOrder(order);
+
+        //linking order to the user
+        order.setUser(user);
+        user.getUsers_orders().add(order);
+        order.setBill(bill);
+        //adding the bill to the DataBase
+       // billService.addBill(bill);
+
+        //saving the user Changes
+        userRepo.save(user);
+        //adding the new order
+        orderService.addOrder(order);
+        return "billSpace";
+    }
 }

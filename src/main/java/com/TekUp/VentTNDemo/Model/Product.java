@@ -31,6 +31,9 @@ public class Product {
                                           inverseJoinColumns = @JoinColumn(name = "order_id"))
     private Set<Order> orders = new HashSet<>();
 
+    public Product(String name) {
+        this.name = name;
+    }
 
     @ManyToOne
     @JsonIgnore
