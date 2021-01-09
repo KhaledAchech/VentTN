@@ -1,10 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Agreement</title>
+
+    <link rel="stylesheet"
+          th:href="@{/webjars/bootstrap/3.4.1/css/bootstrap.min.css}">
+    <script
+            th:src="@{/webjars/jquery/3.5.1/jquery.min.js}">
+    </script>
+    <script
+            th:src="@{/webjars/bootstrap/3.4.1/js/bootstrap.min.js}">
+    </script>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+
 </head>
 <body>
 
+<!-- Contact Us Section -->
+<section class="Material-contact-section section-padding section-dark">
+    <div class="container">
+        <div class="row">
+            <!-- Section Titile -->
+            <div class="col-md-12 wow animated fadeInLeft" data-wow-delay=".2s">
+                <h1 class="section-title">Agreement To be fully Ready.</h1>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Section Titile -->
+            <div class="col-md-6 mt-3 contact-widget-section2 wow animated fadeInLeft" data-wow-delay=".2s">
+                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content.</p>
+
+                <div class="find-widget">
+                    Company:  <a href="https://hostriver.ro">HostRiver</a>
+                </div>
+                <div class="find-widget">
+                    Address: <a href="#">4435 Berkshire Circle Knoxville</a>
+                </div>
+                <div class="find-widget">
+                    Phone:  <a href="#">+ 879-890-9767</a>
+                </div>
+
+                <div class="find-widget">
+                    Program: <a href="#">Mon to Sat: 09:30 AM - 10.30 PM</a>
+                </div>
+            </div>
+
+            </div>
+        <a th:href="@{/billPrint}" class="btn btn-common"> Your Bill</a>
+        </div>
+    </div>
+</section>
 </body>
 </html>

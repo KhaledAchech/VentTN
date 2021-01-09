@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /************************************
  ********* author : Khaled ***********
@@ -595,7 +592,7 @@ public class AppController {
                 LocalDateTime.now().getDayOfMonth(), LocalDateTime.now().getHour(),
                 LocalDateTime.now().getMinute()
         );
-
+        order.setOrder_date(order_date);
 
         User user = userRepo.findByName(name).get();
 
@@ -633,5 +630,36 @@ public class AppController {
         //adding the new order
         orderService.addOrder(order);
         return "billSpace";
+    }
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    @GetMapping("/billPrint")
+    public String generateBill(Model model)
+    {
+        String name = null;
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails)
+            {
+            name = ((UserDetails)principal).getUsername();
+            }
+            else
+            {
+                    name = principal.toString();
+            }
+
+            User user = userRepo.findByName(name).get();
+           Order order = getLastElement(user.getUsers_orders());
+
+        model.addAttribute("order",order);
+        return "billPrint";
+    }
+
+    public static <T> T getLastElement(final Iterable<T> elements) {
+        T lastElement = null;
+
+        for (T element : elements) {
+            lastElement = element;
+        }
+
+        return lastElement;
     }
 }
